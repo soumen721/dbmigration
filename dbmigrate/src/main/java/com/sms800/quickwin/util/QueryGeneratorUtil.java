@@ -128,8 +128,10 @@ public class QueryGeneratorUtil {
 								double numVal = row.getCell(excelColumn).getNumericCellValue();
 								columnVal=new DecimalFormat("0").format(numVal);
 							}
-						}
 							
+							columnVal=getExactVal(columnVal, columnDtls);
+						}
+						
 						if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
 							valQuery.append("'" + columnVal + "', ");
 							updateQuery.append(" "+ columnName +"='" + columnVal + "', ");
@@ -182,4 +184,22 @@ public class QueryGeneratorUtil {
 		return null;
 	}
 	
+	private static String getExactVal(String str, String pattren) throws Exception{
+		if(str!=null && !"".equals(str) && pattren!=null && !"".equals(pattren)){
+			String colPat=pattren.substring(pattren.indexOf("[")+1,pattren.length()-1);
+			if(colPat!=null && "0".equals(colPat)){
+				return str;
+			} else if(colPat!=null && !"".equals(colPat)){
+				String[] indexs=colPat.split(Constant.HYPHEN_DELEMETER);
+				if(indexs!=null && indexs.length==2 && str.length()>Integer.parseInt(indexs[1])){
+					return str.substring(Integer.parseInt(indexs[0]), Integer.parseInt(indexs[1])+1);
+				} else{
+					throw new Exception("Exception occure in getting Column Value");
+				}
+			}
+		} else{
+			throw new Exception("Str or pattarn can not be null");
+		}
+		return null;
+	}
 }
