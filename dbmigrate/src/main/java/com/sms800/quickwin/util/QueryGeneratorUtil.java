@@ -108,63 +108,43 @@ public class QueryGeneratorUtil {
 						List<String> list = mapingDtlsMap.get(key);
 						String columnName=list.get(0);
 						String columnDtls = list.get(1);
+						String columnVal="";
 						boolean isdfltVal = list.get(1).startsWith(Constant.DFLT_VAL_CONSTANT);
 						String dataType = mapingDtlsMap.get(key).get(3).trim();
 						boolean isPrimaryKey=Constant.PRIMARY_KEY.equalsIgnoreCase(mapingDtlsMap.get(key).get(2))?true:false;
 						
+						
 						if (isdfltVal) {
-							String dfltVal = list.get(1).substring(2, list.get(1).lastIndexOf("]"));
-							if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
-								valQuery.append("'" + dfltVal + "', ");
-								updateQuery.append(" "+ columnName +"='" + dfltVal + "', ");
-							} else {
-								valQuery.append(dfltVal + ", ");
-								updateQuery.append(" "+ columnName +"='" + dfltVal + "', ");
-							}
-							if (isPrimaryKey) {
-								if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
-									whereQuery.append(" " + list.get(0) + "='" + dfltVal + "' and ");
-								} else {
-									whereQuery.append(" " + list.get(0) + "='" + dfltVal + "' and ");
-								}
-							}
-
-						} else {
+							columnVal = list.get(1).substring(2, list.get(1).lastIndexOf("]"));
+						} else{
 							int excelColumn = Integer.parseInt(columnDtls.substring(0, columnDtls.lastIndexOf("[")));
-
+							
 							switch (row.getCell(excelColumn).getCellType()) {
 							case Cell.CELL_TYPE_STRING:
-								if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
-									valQuery.append("'" + row.getCell(excelColumn).getStringCellValue().trim() + "', ");
-									updateQuery.append(" "+ columnName +"='" + row.getCell(excelColumn).getStringCellValue().trim() + "', ");
-								} else {
-									double numVal = Double.parseDouble(row.getCell(excelColumn).getStringCellValue().trim());
-									valQuery.append(new DecimalFormat("0").format(numVal) + ", ");
-									updateQuery.append(" "+ columnName +"='" + new DecimalFormat("0").format(numVal) + "', ");
-								}
+								columnVal=row.getCell(excelColumn).getStringCellValue().trim();
 								break;
 
 							case Cell.CELL_TYPE_NUMERIC:
-								if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
-									valQuery.append("'" + row.getCell(excelColumn).getNumericCellValue() + "', ");
-									updateQuery.append(" "+ columnName +"='" + row.getCell(excelColumn).getStringCellValue().trim() + "', ");
-								} else {
-									double numVal = row.getCell(excelColumn).getNumericCellValue();
-									valQuery.append(new DecimalFormat("0").format(numVal) + ", ");
-									updateQuery.append(" "+ columnName +"='" + new DecimalFormat("0").format(numVal) + "', ");
-								}
-							}
-							
-							if (isPrimaryKey) {
-								if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
-									whereQuery.append(" " + list.get(0) + "='" + row.getCell(excelColumn).getStringCellValue().trim() + "' and ");
-								} else {
-									double numVal = row.getCell(excelColumn).getNumericCellValue();
-									whereQuery.append(" " + list.get(0) + "='" + new DecimalFormat("0").format(numVal) + "' and ");
-								}
+								double numVal = row.getCell(excelColumn).getNumericCellValue();
+								columnVal=new DecimalFormat("0").format(numVal);
 							}
 						}
-
+							
+						if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
+							valQuery.append("'" + columnVal + "', ");
+							updateQuery.append(" "+ columnName +"='" + columnVal + "', ");
+						} else {
+							valQuery.append(columnVal + ", ");
+							updateQuery.append(" "+ columnName +"='" + columnVal + "', ");
+						}
+												
+						if (isPrimaryKey) {
+							if (Constant.DATA_TYP_VARCHAR.equalsIgnoreCase(dataType)) {
+								whereQuery.append(" " + columnName+ "='" + columnVal + "' and ");
+							} else {
+								whereQuery.append(" " + columnName + "=" + columnVal + " and ");
+							}
+						}
 					}
 					
 					String finalValQuery = valQuery.toString().substring(0, valQuery.toString().lastIndexOf(",")) + ");";
