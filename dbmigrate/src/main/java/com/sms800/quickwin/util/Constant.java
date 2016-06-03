@@ -16,6 +16,7 @@ public class Constant {
 	public static String END_ROW="end.row.num";
 	public static String COLUMN_MAPPING="script.mapping"; 
 	public static String SQL_FILE_PATH="sql.file.path"; 
+	public static String ERROR_FILE_PATH="error.file.path";
 	
 	public static String TILD_DELEMETER="~~"; 
 	public static String PIPE_DELEMETER="\\|"; 

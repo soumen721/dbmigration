@@ -46,7 +46,7 @@ public class DBMigrateApplication implements CommandLineRunner {
 	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setDriverClassName("org.postgresql.Driver");	//"com.mysql.jdbc.Driver";
 		dataSource.setUrl(env.getProperty(Constant.DB_URL));
 		dataSource.setUsername(env.getProperty(Constant.DB_USR_NAME));
 		dataSource.setPassword(env.getProperty(Constant.DB_USER_PASSWORD));		

@@ -65,7 +65,7 @@ public class ReadExcelFileServiceImpl implements ReadExcelFileService {
 			}
 			// Execute List Query DAO Call
 			if (isSqlExecute) {
-				int noOfFailQuery=queryExecutorDao.executeQuery(queryMap);
+				int noOfFailQuery=queryExecutorDao.executeQuery(env, queryMap);
 				logger.info("NO of Fail Query : "+ noOfFailQuery);
 			}
 
