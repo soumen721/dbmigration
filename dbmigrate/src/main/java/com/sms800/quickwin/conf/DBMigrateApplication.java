@@ -10,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -20,7 +19,7 @@ import com.sms800.quickwin.util.Constant;
 
 @SpringBootApplication
 @ComponentScan(basePackages="com.sms800.quickwin")
-@PropertySource(value="file:${app.home}/config.properties", ignoreResourceNotFound=true)
+//@PropertySource(value="file:${app.home}/config.properties", ignoreResourceNotFound=true)
 public class DBMigrateApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(DBMigrateApplication.class);
 	
@@ -46,8 +45,8 @@ public class DBMigrateApplication implements CommandLineRunner {
 	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.postgresql.Driver");	//"com.mysql.jdbc.Driver";
-		dataSource.setUrl(env.getProperty(Constant.DB_URL));
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");	//"com.mysql.jdbc.Driver";
+		dataSource.setUrl(env.getProperty(Constant.DB_URL)+"/"+ env.getProperty(Constant.DB_SCHEMA_NAME));
 		dataSource.setUsername(env.getProperty(Constant.DB_USR_NAME));
 		dataSource.setPassword(env.getProperty(Constant.DB_USER_PASSWORD));		
 		return dataSource;

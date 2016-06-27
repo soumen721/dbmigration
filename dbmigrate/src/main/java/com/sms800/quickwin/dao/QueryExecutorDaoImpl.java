@@ -35,19 +35,19 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 		int failCont = 0;
 		List<String> insertQueryList = map.get(Constant.MAP_INSERT_KEY);
 		List<String> updateQueryList = map.get(Constant.MAP_UPDATE_KEY);
-		// logger.debug("Map :: "+ map);
-		// jdbcTemplate.batchUpdate(insertQueryList.toArray(new
-		// String[insertQueryList.size()]));
+		boolean isExistingRecordUpdate = "Y".equalsIgnoreCase(env.getProperty(Constant.SQL_UPDATE_STATUS).trim()) ? true : false;
 
 		for (int i = 0; i < insertQueryList.size(); i++) {
 			try {
 				int updateCnt = 0;
-				try {
-					updateCnt = jdbcTemplate.update(updateQueryList.get(i));
-				} catch (Exception exc) {
-					failCont++;
-					errorUpdateQueryList.add(updateQueryList.get(i));
-					logger.debug("Exception in Query :: " + updateQueryList.get(i) + " :: " + exc.getMessage());
+				if(isExistingRecordUpdate){
+					try {
+						updateCnt = jdbcTemplate.update(updateQueryList.get(i));
+					} catch (Exception exc) {
+						failCont++;
+						errorUpdateQueryList.add(updateQueryList.get(i));
+						logger.debug("Exception in Query :: " + updateQueryList.get(i) + " :: " + exc.getMessage());
+					}
 				}
 				if (updateCnt == 0) {
 					jdbcTemplate.execute(insertQueryList.get(i));

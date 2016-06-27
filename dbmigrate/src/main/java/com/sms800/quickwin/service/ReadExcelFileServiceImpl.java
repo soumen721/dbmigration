@@ -53,22 +53,24 @@ public class ReadExcelFileServiceImpl implements ReadExcelFileService {
 			Sheet sheet = workbook.getSheet(sheetName);
 			//insertQueryList = QueryGeneratorUtil.generateQuery(env, sheet);
 			//updateQueryList = QueryGeneratorUtil.generateUpdateQuery(env, sheet);
-
-			queryMap=QueryGeneratorUtil.generateQuery(env, sheet);
-
-			logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
-			logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
-
-			// Generate List Query DAO Call
-			if (isSqlGenerate) {
-				queryGeneratorService.generateQuery(env, queryMap);
+			if(sheet!=null){
+				queryMap=QueryGeneratorUtil.generateQuery(env, sheet);
+	
+				//logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
+				//logger.debug("\n Final Update Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
+	
+				// Generate List Query DAO Call
+				if (isSqlGenerate) {
+					queryGeneratorService.generateQuery(env, queryMap);
+				}
+				// Execute List Query DAO Call
+				if (isSqlExecute) {
+					int noOfFailQuery=queryExecutorDao.executeQuery(env, queryMap);
+					logger.info("NO of Fail Query : "+ noOfFailQuery);
+				}
+			} else{
+				throw new Exception("Sheet Can not be null");
 			}
-			// Execute List Query DAO Call
-			if (isSqlExecute) {
-				int noOfFailQuery=queryExecutorDao.executeQuery(env, queryMap);
-				logger.info("NO of Fail Query : "+ noOfFailQuery);
-			}
-
 			fis.close();
 		} catch (Exception exc) {
 			//e.printStackTrace();
