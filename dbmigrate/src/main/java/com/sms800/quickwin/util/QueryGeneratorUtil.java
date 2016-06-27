@@ -93,11 +93,11 @@ public class QueryGeneratorUtil {
 			Iterator<Row> rowIterator = sheet.iterator();
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
-				if (row.getRowNum() > endRow-1) {
+				if (row.getRowNum() > endRow - Constant.EXCEL_ROW_INCREMENTER) {
 					break;
 				}
 				// Start Generating Script Data
-				if (row.getRowNum() >= startRow-1) {
+				if (row.getRowNum() >= startRow - Constant.EXCEL_ROW_INCREMENTER) {
 					
 					valQuery = new StringBuilder("(");
 					updateQuery = new StringBuilder(Constant.UPDATE_QUERY_1);
@@ -158,8 +158,8 @@ public class QueryGeneratorUtil {
 					//logger.debug("\n Update Query ::" + finalUpdateQuery);
 
 					// Generate Query
-					insertQueryList.add(finalInsertQuery);
-					updateQueryList.add(finalUpdateQuery);
+					insertQueryList.add(row.getRowNum()+Constant.EXCEL_ROW_INCREMENTER +Constant.TILD_DELEMETER+ finalInsertQuery);
+					updateQueryList.add(row.getRowNum()+Constant.EXCEL_ROW_INCREMENTER +Constant.TILD_DELEMETER+ finalUpdateQuery);
 				}
 			}
 			

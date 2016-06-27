@@ -37,27 +37,31 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 		List<String> updateQueryList = map.get(Constant.MAP_UPDATE_KEY);
 		boolean isExistingRecordUpdate = "Y".equalsIgnoreCase(env.getProperty(Constant.SQL_UPDATE_STATUS).trim()) ? true : false;
 
+		logger.debug("\n");
 		for (int i = 0; i < insertQueryList.size(); i++) {
 			try {
 				int updateCnt = 0;
 				if(isExistingRecordUpdate){
 					try {
-						updateCnt = jdbcTemplate.update(updateQueryList.get(i));
+						updateCnt = jdbcTemplate.update(updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1]);
 					} catch (Exception exc) {
 						failCont++;
 						errorUpdateQueryList.add(updateQueryList.get(i));
-						logger.debug("Exception in Query :: " + updateQueryList.get(i) + " :: " + exc.getMessage());
+						logger.debug("Exception in Date for Excel Row ::"+updateQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
+									" For Query ==>> " + updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + " :: " + exc.getMessage());
 					}
 				}
 				if (updateCnt == 0) {
-					jdbcTemplate.execute(insertQueryList.get(i));
+					jdbcTemplate.execute(insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1]);
 				}
 			} catch (Exception exc) {
 				failCont++;
-				errorInsertQueryList.add(insertQueryList.get(i));
-				logger.debug("Exception in Query :: " + insertQueryList.get(i) + " :: " + exc.getMessage());
+				errorInsertQueryList.add(insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1]);
+				logger.debug("Exception in Date for Excel Row ::"+insertQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
+						" For Query ==>> " + insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + " :: " + exc.getMessage());
 			}
 		}
+		logger.debug("\n");
 
 		BufferedWriter bufferWritter = null;
 		try {

@@ -20,6 +20,7 @@ public class Constant {
 	public static String SQL_FILE_PATH="generate.sql.file.path"; 
 	public static String ERROR_FILE_PATH="error.file.path";
 	
+	public static int EXCEL_ROW_INCREMENTER=1; 
 	public static String TILD_DELEMETER="~~"; 
 	public static String PIPE_DELEMETER="\\|"; 
 	public static String HYPHEN_DELEMETER="-";

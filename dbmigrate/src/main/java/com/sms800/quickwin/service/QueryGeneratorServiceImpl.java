@@ -42,8 +42,8 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 						&& updateQueryList.size()==insertQueryList.size()){
 				
 				for (int i = 0; i < updateQueryList.size(); i++) {
-					bufferWritter.write(updateQueryList.get(i) + "\n");
-					bufferWritter.write(insertQueryList.get(i) + "\n");
+					bufferWritter.write(updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + "\n");
+					bufferWritter.write(insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + "\n");
 				}
 			}
 			
