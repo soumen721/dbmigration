@@ -32,12 +32,12 @@
 	</appender>
 
 	<logger name="com.sms800.quickwin" level="debug" additivity="false">
-		<appender-ref ref="FILE-AUDIT" /> 
+		<!-- <appender-ref ref="FILE-AUDIT" />  -->
 		<appender-ref ref="consoleAppender" />
 	</logger>
 
 	<root level="error">
-		<appender-ref ref="FILE-AUDIT" />
+		<!-- <appender-ref ref="FILE-AUDIT" /> -->
 		<appender-ref ref="consoleAppender" />
 	</root>
 
