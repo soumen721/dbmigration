@@ -24,7 +24,7 @@ public class QueryGeneratorUtil {
 	static StringBuilder whereQuery = null;
 	static StringBuilder valQuery = null;
 
-	public static Map<String, List<String>> generateQuery(Environment env, Sheet sheet) throws Exception {
+	public static Map<String, List<String>> generateQuery(Map<String, String> confMap, Sheet sheet) throws Exception {
 		logger.debug("Enter into Method :: QueryGeneratorUtil.generateInsertQuery()");
 		long startTime=System.currentTimeMillis();
 		
@@ -32,10 +32,10 @@ public class QueryGeneratorUtil {
 		List<String> insertQueryList = new ArrayList<String>();
 		List<String> updateQueryList = new ArrayList<String>();
 		try {
-			int startRow = Integer.parseInt(env.getProperty(Constant.START_ROW).trim());
-			int endRow = Integer.parseInt(env.getProperty(Constant.END_ROW).trim());
-			String tableName = env.getProperty(Constant.DB_TABLE_NAME.trim());
-			String columnMapping = env.getProperty(Constant.COLUMN_MAPPING).trim();
+			int startRow = Integer.parseInt(confMap.get(Constant.START_ROW).trim());
+			int endRow = Integer.parseInt(confMap.get(Constant.END_ROW).trim());
+			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
+			String columnMapping = confMap.get(Constant.COLUMN_MAPPING).trim();
 			
 			// Populate Column Mapping Details
 			logger.debug("\n");

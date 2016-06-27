@@ -16,7 +16,7 @@ public class Constant {
 	
 	public static String START_ROW="start.row.num";
 	public static String END_ROW="end.row.num";
-	public static String COLUMN_MAPPING="script.mapping"; 
+	public static String COLUMN_MAPPING="column.mapping"; 
 	public static String SQL_FILE_PATH="generate.sql.file.path"; 
 	public static String ERROR_FILE_PATH="error.file.path";
 	

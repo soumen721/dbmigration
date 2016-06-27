@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.sms800.quickwin.util.Constant;
@@ -19,7 +19,7 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 	private static final Logger logger = LoggerFactory.getLogger(QueryGeneratorServiceImpl.class);
 
 	@Override
-	public void generateQuery(Environment env, Map<String, List<String>> queryMap) {
+	public void generateQuery(Map<String, String> confMap, Map<String, List<String>> queryMap) {
 		logger.debug("Enter into Method :: QueryGeneratorServiceImpl.generateQuery()");
 
 		BufferedWriter bufferWritter = null;
@@ -27,9 +27,9 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 			List<String> insertQueryList = queryMap.get("insertQueryList");
 			List<String> updateQueryList = queryMap.get("updateQueryList");
 			logger.debug("Number of Query :: " + queryMap.get("insertQueryList").size() + "||" + queryMap.get("insertQueryList").size());
-			String filePath = env.getProperty(Constant.SQL_FILE_PATH).trim();
-			String tableName = env.getProperty(Constant.DB_TABLE_NAME.trim());
-			String sheetName = env.getProperty(Constant.EXCEL_SHEET_NAME).trim();
+			String filePath = confMap.get(Constant.SQL_FILE_PATH).trim();
+			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
+			String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
 			String compFileName = filePath + "\\" + sheetName+"_"+tableName + ".sql";
 			
 			File file = new File(compFileName);

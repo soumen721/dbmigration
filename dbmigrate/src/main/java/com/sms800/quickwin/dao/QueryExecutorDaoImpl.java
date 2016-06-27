@@ -12,7 +12,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +25,7 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public int executeQuery(Environment env, Map<String, List<String>> map) {
+	public int executeQuery(Map<String, String> confMap, Map<String, List<String>> map) {
 		logger.debug("Enter into Method :: QueryExecutorDaoImpl.executeQuery()");
 		long startTime = System.currentTimeMillis();
 		List<String> errorInsertQueryList = new ArrayList<String>();
@@ -35,7 +34,7 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 		int failCont = 0;
 		List<String> insertQueryList = map.get(Constant.MAP_INSERT_KEY);
 		List<String> updateQueryList = map.get(Constant.MAP_UPDATE_KEY);
-		boolean isExistingRecordUpdate = "Y".equalsIgnoreCase(env.getProperty(Constant.SQL_UPDATE_STATUS).trim()) ? true : false;
+		boolean isExistingRecordUpdate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_UPDATE_STATUS).trim()) ? true : false;
 
 		logger.debug("\n");
 		for (int i = 0; i < insertQueryList.size(); i++) {
@@ -65,8 +64,8 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 
 		BufferedWriter bufferWritter = null;
 		try {
-			String filePath = env.getProperty(Constant.ERROR_FILE_PATH).trim();
-			String tableName = env.getProperty(Constant.DB_TABLE_NAME.trim());
+			String filePath = confMap.get(Constant.ERROR_FILE_PATH).trim();
+			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
 			String compFileName = filePath + "\\" + tableName + "_error.sql";
 
 			File file = new File(compFileName);
