@@ -24,6 +24,7 @@ public class Constant {
 	public static String TILD_DELEMETER="~~"; 
 	public static String PIPE_DELEMETER="\\|"; 
 	public static String HYPHEN_DELEMETER="-";
+	public static String DOT_DELEMETER=".";
 	
 	public static String DFLT_VAL_CONSTANT="D";
 	public static String PRIMARY_KEY="P";

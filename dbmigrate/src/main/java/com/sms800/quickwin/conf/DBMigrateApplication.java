@@ -123,12 +123,18 @@ public class DBMigrateApplication implements CommandLineRunner {
 		} else{
 			configMap.put(Constant.END_ROW, "1000");
 		}
-		if(environment.getProperty(Constant.COLUMN_MAPPING)!=null && !"".equals(environment.getProperty(Constant.COLUMN_MAPPING))){	
+		
+		String columnMappingNmae=Constant.COLUMN_MAPPING+Constant.DOT_DELEMETER+ environment.getProperty(Constant.DB_TABLE_NAME);
+		if(environment.getProperty(columnMappingNmae)!=null && !"".equals(environment.getProperty(columnMappingNmae))){	
+			configMap.put(Constant.COLUMN_MAPPING, environment.getProperty(columnMappingNmae));
+		} else if(environment.getProperty(Constant.COLUMN_MAPPING)!=null && !"".equals(environment.getProperty(Constant.COLUMN_MAPPING))){
 			configMap.put(Constant.COLUMN_MAPPING, environment.getProperty(Constant.COLUMN_MAPPING));
 		} else{
 			isConfigValid=false;
-			logger.debug(Constant.COLUMN_MAPPING+ " property value can not be null or blank");
+			logger.debug(columnMappingNmae +" or " +Constant.COLUMN_MAPPING+ " property value can not be null or blank");
 		}
+		
+		
 		if(environment.getProperty(Constant.SQL_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.SQL_FILE_PATH))){	
 			configMap.put(Constant.SQL_FILE_PATH, environment.getProperty(Constant.SQL_FILE_PATH));
 		} else{
