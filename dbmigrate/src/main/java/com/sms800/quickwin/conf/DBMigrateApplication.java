@@ -50,18 +50,18 @@ public class DBMigrateApplication implements CommandLineRunner {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");	//"com.mysql.jdbc.Driver";
 		
-		if(environment.getProperty(Constant.DB_URL)!=null && "".equals(environment.getProperty(Constant.DB_URL))
-				&& environment.getProperty(Constant.DB_SCHEMA_NAME)!=null && "".equals(environment.getProperty(Constant.DB_SCHEMA_NAME)) ){	
+		if(environment.getProperty(Constant.DB_URL)!=null && !"".equals(environment.getProperty(Constant.DB_URL))
+				&& environment.getProperty(Constant.DB_SCHEMA_NAME)!=null && !"".equals(environment.getProperty(Constant.DB_SCHEMA_NAME)) ){	
 			dataSource.setUrl(environment.getProperty(Constant.DB_URL)+"/"+ environment.getProperty(Constant.DB_SCHEMA_NAME));
 		} else{
 			logger.debug(Constant.DB_URL+" or "+Constant.DB_SCHEMA_NAME+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.DB_USR_NAME)!=null && "".equals(environment.getProperty(Constant.DB_USR_NAME))){	
+		if(environment.getProperty(Constant.DB_USR_NAME)!=null && !"".equals(environment.getProperty(Constant.DB_USR_NAME))){	
 			dataSource.setUsername(environment.getProperty(Constant.DB_USR_NAME));
 		} else{
 			logger.debug(Constant.DB_USR_NAME+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.DB_USER_PASSWORD)!=null && "".equals(environment.getProperty(Constant.DB_USER_PASSWORD))){	
+		if(environment.getProperty(Constant.DB_USER_PASSWORD)!=null && !"".equals(environment.getProperty(Constant.DB_USER_PASSWORD))){	
 			dataSource.setPassword(environment.getProperty(Constant.DB_USER_PASSWORD));
 		} else{
 			logger.debug(Constant.DB_USER_PASSWORD+ " property value can not be null or blank");
@@ -77,65 +77,65 @@ public class DBMigrateApplication implements CommandLineRunner {
 	private Map<String, String> validateConfigParameter(Environment environment) {
 		Map<String, String> configMap=new HashMap<String, String>();
 		boolean isConfigValid=true;
-		if(environment.getProperty(Constant.DB_TABLE_NAME)!=null && "".equals(environment.getProperty(Constant.DB_TABLE_NAME))){	
+		if(environment.getProperty(Constant.DB_TABLE_NAME)!=null && !"".equals(environment.getProperty(Constant.DB_TABLE_NAME))){	
 			configMap.put(Constant.DB_TABLE_NAME, environment.getProperty(Constant.DB_TABLE_NAME));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.DB_TABLE_NAME+ " property value can not be null or blank");
 		}	
-		if(environment.getProperty(Constant.EXCEL_FILE_PATH)!=null && "".equals(environment.getProperty(Constant.EXCEL_FILE_PATH))){	
+		if(environment.getProperty(Constant.EXCEL_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.EXCEL_FILE_PATH))){	
 			configMap.put(Constant.EXCEL_FILE_PATH, environment.getProperty(Constant.EXCEL_FILE_PATH));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.EXCEL_FILE_PATH+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.EXCEL_SHEET_NAME)!=null && "".equals(environment.getProperty(Constant.EXCEL_SHEET_NAME))){	
+		if(environment.getProperty(Constant.EXCEL_SHEET_NAME)!=null && !"".equals(environment.getProperty(Constant.EXCEL_SHEET_NAME))){	
 			configMap.put(Constant.EXCEL_SHEET_NAME, environment.getProperty(Constant.EXCEL_SHEET_NAME));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.EXCEL_SHEET_NAME+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.SQL_GEN_FLAG)!=null && "".equals(environment.getProperty(Constant.SQL_GEN_FLAG))){	
+		if(environment.getProperty(Constant.SQL_GEN_FLAG)!=null && !"".equals(environment.getProperty(Constant.SQL_GEN_FLAG))){	
 			configMap.put(Constant.SQL_GEN_FLAG, environment.getProperty(Constant.SQL_GEN_FLAG));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.SQL_GEN_FLAG+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.SQL_EXEC_FLAG)!=null && "".equals(environment.getProperty(Constant.SQL_EXEC_FLAG))){	
+		if(environment.getProperty(Constant.SQL_EXEC_FLAG)!=null && !"".equals(environment.getProperty(Constant.SQL_EXEC_FLAG))){	
 			configMap.put(Constant.SQL_EXEC_FLAG, environment.getProperty(Constant.SQL_EXEC_FLAG));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.SQL_EXEC_FLAG+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.SQL_UPDATE_STATUS)!=null && "".equals(environment.getProperty(Constant.SQL_UPDATE_STATUS))){	
+		if(environment.getProperty(Constant.SQL_UPDATE_STATUS)!=null && !"".equals(environment.getProperty(Constant.SQL_UPDATE_STATUS))){	
 			configMap.put(Constant.SQL_UPDATE_STATUS, environment.getProperty(Constant.SQL_UPDATE_STATUS));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.SQL_UPDATE_STATUS+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.START_ROW)!=null && "".equals(environment.getProperty(Constant.START_ROW))){	
+		if(environment.getProperty(Constant.START_ROW)!=null && !"".equals(environment.getProperty(Constant.START_ROW))){	
 			configMap.put(Constant.START_ROW, environment.getProperty(Constant.START_ROW));
 		} else{
 			configMap.put(Constant.START_ROW, "2");
 		}
-		if(environment.getProperty(Constant.END_ROW)!=null && "".equals(environment.getProperty(Constant.END_ROW))){	
+		if(environment.getProperty(Constant.END_ROW)!=null && !"".equals(environment.getProperty(Constant.END_ROW))){	
 			configMap.put(Constant.END_ROW, environment.getProperty(Constant.END_ROW));
 		} else{
 			configMap.put(Constant.END_ROW, "1000");
 		}
-		if(environment.getProperty(Constant.COLUMN_MAPPING)!=null && "".equals(environment.getProperty(Constant.COLUMN_MAPPING))){	
+		if(environment.getProperty(Constant.COLUMN_MAPPING)!=null && !"".equals(environment.getProperty(Constant.COLUMN_MAPPING))){	
 			configMap.put(Constant.COLUMN_MAPPING, environment.getProperty(Constant.COLUMN_MAPPING));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.COLUMN_MAPPING+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.SQL_FILE_PATH)!=null && "".equals(environment.getProperty(Constant.SQL_FILE_PATH))){	
+		if(environment.getProperty(Constant.SQL_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.SQL_FILE_PATH))){	
 			configMap.put(Constant.SQL_FILE_PATH, environment.getProperty(Constant.SQL_FILE_PATH));
 		} else{
 			isConfigValid=false;
 			logger.debug(Constant.SQL_FILE_PATH+ " property value can not be null or blank");
 		}
-		if(environment.getProperty(Constant.ERROR_FILE_PATH)!=null && "".equals(environment.getProperty(Constant.ERROR_FILE_PATH))){	
+		if(environment.getProperty(Constant.ERROR_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.ERROR_FILE_PATH))){	
 			configMap.put(Constant.ERROR_FILE_PATH, environment.getProperty(Constant.ERROR_FILE_PATH));
 		} else{
 			isConfigValid=false;

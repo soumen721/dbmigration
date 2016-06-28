@@ -67,7 +67,8 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 			String filePath = confMap.get(Constant.ERROR_FILE_PATH).trim();
 			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
 			String compFileName = filePath + "\\" + tableName + "_error.sql";
-
+			
+			logger.debug("Error File Path: "+ compFileName);
 			File file = new File(compFileName);
 			if (!file.exists()) {
 				file.createNewFile();

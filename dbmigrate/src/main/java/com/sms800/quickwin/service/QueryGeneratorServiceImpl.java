@@ -32,6 +32,7 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 			String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
 			String compFileName = filePath + "\\" + sheetName+"_"+tableName + ".sql";
 			
+			logger.debug("Generated SQL File Path : "+ compFileName);
 			File file = new File(compFileName);
 			if (!file.exists()) {
 				file.createNewFile();
