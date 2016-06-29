@@ -118,7 +118,10 @@ public class QueryGeneratorUtil {
 							columnVal = list.get(1).substring(2, list.get(1).lastIndexOf("]"));
 						} else{
 							int excelColumn = Integer.parseInt(columnDtls.substring(0, columnDtls.lastIndexOf("[")));
-							
+							//logger.debug("Excel Row : "+(row.getRowNum()+Constant.EXCEL_ROW_INCREMENTER) +" & Column : "+ excelColumn);
+							if(row.getCell(excelColumn)==null){
+								throw new Exception("Excel Cell Type null for Row : "+ (row.getRowNum()+ Constant.EXCEL_ROW_INCREMENTER) +" & Cell : "+excelColumn);
+							}
 							switch (row.getCell(excelColumn).getCellType()) {
 							case Cell.CELL_TYPE_STRING:
 								columnVal=row.getCell(excelColumn).getStringCellValue().trim();
@@ -166,8 +169,8 @@ public class QueryGeneratorUtil {
 			queryMap.put(Constant.MAP_INSERT_KEY, insertQueryList);
 			queryMap.put(Constant.MAP_UPDATE_KEY, updateQueryList);
 		} catch (Exception exc) {
-			logger.debug("In Exception :: QueryGeneratorUtil.generateInsertQuery() , Exception : " + exc.getMessage());
-			exc.printStackTrace();
+			logger.debug("[[ Error :: QueryGeneratorUtil.generateInsertQuery() , Exception : " + exc.getMessage()+" ]]");
+			//exc.printStackTrace();
 			throw exc;
 		}
 
@@ -194,11 +197,11 @@ public class QueryGeneratorUtil {
 				if(indexs!=null && indexs.length==2 && str.length()>Integer.parseInt(indexs[1])){
 					return str.substring(Integer.parseInt(indexs[0]), Integer.parseInt(indexs[1])+1);
 				} else{
-					throw new Exception("Exception occure in Retriving Column Value for Row ::"+rowNumber+"	& Value: "+str +"	& Pattern : "+ pattren);
+					throw new Exception("Error occureed in Retriving Column Value for Row ::"+rowNumber+"	& Value: "+str +"	& Pattern : "+ pattren);
 				}
 			}
 		} else{
-			throw new Exception("Str or pattarn can not be null");
+			throw new Exception("Error occureed in Retriving Column Value for Row ::"+rowNumber+"	& Value: "+str +"	& Pattern : "+ pattren);
 		}
 		return null;
 	}
