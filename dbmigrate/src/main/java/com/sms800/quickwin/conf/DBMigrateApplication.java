@@ -40,6 +40,7 @@ public class DBMigrateApplication implements CommandLineRunner {
 		logger.debug("Start Execution ..............");
 		Map<String, String> confMap=validateConfigParameter(environment); 
 		if(confMap!=null && !confMap.isEmpty() && confMap.get("isConfigValid")!=null && "true".equalsIgnoreCase(confMap.get("isConfigValid")) ){
+			logger.debug("Column Mapping : "+ confMap.get(Constant.COLUMN_MAPPING));
 			readExcelFileService.readExcelData(confMap);
 		}
 		logger.debug("End of Execute ..............");
