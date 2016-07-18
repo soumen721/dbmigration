@@ -52,7 +52,7 @@ public class ReadExcelFileServiceImpl implements ReadExcelFileService {
 
 			Sheet sheet = workbook.getSheet(sheetName);
 			if(sheet!=null){
-				queryMap=QueryGeneratorUtil.generateQuery(confMap, sheet);
+				queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet);
 				//logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
 				//logger.debug("\n Final Update Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
 	

@@ -7,6 +7,8 @@ public class Constant {
 	public static String DB_USR_NAME="quickwin.db.user.name";
 	public static String DB_USER_PASSWORD="quickwin.db.user.password";
 	public static String DB_TABLE_NAME="db.table.name";
+	public static String EXCEL_MAPPING_FILE_NAME="excel.map.file.name";
+	public static String EXCEL_ALIAS_TO_READ="excel.alias.to.read";
 	
 	public static String EXCEL_FILE_PATH="excel.file.path";
 	public static String EXCEL_SHEET_NAME="excel.sheet.name";
@@ -40,4 +42,17 @@ public class Constant {
 	
 	public static String MAP_INSERT_KEY="insertQueryList";
 	public static String MAP_UPDATE_KEY="updateQueryList";
+	
+	//Mapping Config
+	public static  String TABLE_META_DATA = "tablemetadata";
+	public static  String TAG_JOB_TYPE = "mapping";
+	public static  String ATTR_JOB_ALIAS = "alias";
+	public static  String ATTR_JOB_TABLE = "table";
+	public static  String ATTR_TABLE_NODE = "column";
+	public static  String ATTR_XLS_COL = "excelColumn";
+	public static  String ATTR_TABLE_COL = "toTableCloumn";
+	public static  String ATTR_DATATYPE = "datatype";
+	public static  String ATTR_PATTRN ="pattern";
+	public static  String ATTR_IS_PRIMERY_KEY ="isPrimaryKey";
+	public static  String ATTR_DATAFORMAT = "dataformat";
 }

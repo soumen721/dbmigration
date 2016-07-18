@@ -49,11 +49,11 @@ public class DBMigrateApplication implements CommandLineRunner {
 	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");	//"com.mysql.jdbc.Driver";
+		dataSource.setDriverClassName("org.postgresql.Driver");	//"com.mysql.jdbc.Driver";
 		
 		if(environment.getProperty(Constant.DB_URL)!=null && !"".equals(environment.getProperty(Constant.DB_URL))
 				&& environment.getProperty(Constant.DB_SCHEMA_NAME)!=null && !"".equals(environment.getProperty(Constant.DB_SCHEMA_NAME)) ){	
-			dataSource.setUrl(environment.getProperty(Constant.DB_URL)+"/"+ environment.getProperty(Constant.DB_SCHEMA_NAME));
+			dataSource.setUrl(environment.getProperty(Constant.DB_URL)+""+ environment.getProperty(Constant.DB_SCHEMA_NAME));
 		} else{
 			logger.debug(Constant.DB_URL+" or "+Constant.DB_SCHEMA_NAME+ " property value can not be null or blank");
 		}
@@ -84,6 +84,18 @@ public class DBMigrateApplication implements CommandLineRunner {
 			isConfigValid=false;
 			logger.debug(Constant.DB_TABLE_NAME+ " property value can not be null or blank");
 		}	
+		if(environment.getProperty(Constant.EXCEL_MAPPING_FILE_NAME)!=null && !"".equals(environment.getProperty(Constant.EXCEL_MAPPING_FILE_NAME))){	
+			configMap.put(Constant.EXCEL_MAPPING_FILE_NAME, environment.getProperty(Constant.EXCEL_MAPPING_FILE_NAME));
+		} else{
+			isConfigValid=false;
+			logger.debug(Constant.EXCEL_MAPPING_FILE_NAME+ " property value can not be null or blank");
+		}
+		if(environment.getProperty(Constant.EXCEL_ALIAS_TO_READ)!=null && !"".equals(environment.getProperty(Constant.EXCEL_ALIAS_TO_READ))){	
+			configMap.put(Constant.EXCEL_ALIAS_TO_READ, environment.getProperty(Constant.EXCEL_ALIAS_TO_READ));
+		} else{
+			isConfigValid=false;
+			logger.debug(Constant.EXCEL_ALIAS_TO_READ+ " property value can not be null or blank");
+		}
 		if(environment.getProperty(Constant.EXCEL_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.EXCEL_FILE_PATH))){	
 			configMap.put(Constant.EXCEL_FILE_PATH, environment.getProperty(Constant.EXCEL_FILE_PATH));
 		} else{

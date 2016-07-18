@@ -7,16 +7,29 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class QueryGeneratorUtil {
 	private static final Logger logger = LoggerFactory.getLogger(QueryGeneratorUtil.class);
-
+	
+	static String excelMappingAttr[] = {Constant.ATTR_XLS_COL, Constant.ATTR_TABLE_COL, Constant.ATTR_PATTRN,
+										Constant.ATTR_IS_PRIMERY_KEY, Constant.ATTR_DATATYPE};
+	
+	
 	static StringBuilder insertQuery = new StringBuilder(Constant.INSERT_QUERY_1);
 	static String finalInsertQuery = null;
 	static String finalUpdateQuery = null;
@@ -24,7 +37,8 @@ public class QueryGeneratorUtil {
 	static StringBuilder whereQuery = null;
 	static StringBuilder valQuery = null;
 
-	public static Map<String, List<String>> generateQuery(Map<String, String> confMap, Sheet sheet) throws Exception {
+	@SuppressWarnings("unchecked")
+	public static Map<String, List<String>> generateQueryFrmExcel(Map<String, String> confMap, Sheet sheet) throws Exception {
 		logger.debug("Enter into Method :: QueryGeneratorUtil.generateInsertQuery()");
 		long startTime=System.currentTimeMillis();
 		
@@ -39,9 +53,9 @@ public class QueryGeneratorUtil {
 			
 			// Populate Column Mapping Details
 			logger.debug("\n");
-			String[] colsMapArray = columnMapping.split(Constant.TILD_DELEMETER);
+			//String[] colsMapArray = columnMapping.split(Constant.TILD_DELEMETER);
 			Map<String, List<String>> mapingDtlsMap = new HashMap<String, List<String>>();
-			if (colsMapArray != null && colsMapArray.length > 0) {
+			/*if (colsMapArray != null && colsMapArray.length > 0) {
 				for (String str : colsMapArray) {
 					String[] colDtls = str.split(Constant.PIPE_DELEMETER);
 					if (colDtls != null && colDtls.length == 4) {
@@ -72,8 +86,46 @@ public class QueryGeneratorUtil {
 				}
 			} else {
 				throw new Exception("Column Mapping Value not Proper");
-			}
+			}*/
 
+			//**************New **********/
+			//New Implementation
+			NodeList nodeList = loadMappingFile(confMap.get(Constant.EXCEL_MAPPING_FILE_NAME));			
+			Map<String, Map<String,Object>> fullConfMap= loadMappingDetails(nodeList);
+			List<Map<String,String>> mapingList=null;
+			
+			if(fullConfMap!=null && !fullConfMap.isEmpty()){
+				Map<String,Object> map = fullConfMap.get(confMap.get(Constant.EXCEL_ALIAS_TO_READ));
+				if(map!=null && !map.isEmpty()){
+					mapingList=(List<Map<String, String>>) map.get(Constant.TABLE_META_DATA);
+				} else{
+					throw new Exception("XML Mapping not proper");
+				}
+			} else{
+				throw new Exception("XML Mapping not proper");
+			}
+			
+			for (Map<String,String> dtls : mapingList) {
+				String colVal = null;
+				String fullCol=dtls.get(Constant.ATTR_XLS_COL)+"["+dtls.get(Constant.ATTR_PATTRN)+"]";
+				if (fullCol.startsWith(Constant.DFLT_VAL_CONSTANT)) {
+					colVal = "DefaultValue-" + fullCol.substring(1);
+				} else {
+					if (fullCol.split(Constant.HYPHEN_DELEMETER).length > 1) {
+						colVal = "PartialColumnValue";
+					} else {
+						colVal = "FullColumnValue";
+					}
+				}
+				logger.debug("Coulmn Details ==>> ColumnName = " + dtls.get(Constant.ATTR_TABLE_COL) + " & ColumnValue = " + colVal
+						+ " & isPrimaryKey = " + ("Y".equalsIgnoreCase(dtls.get(Constant.ATTR_IS_PRIMERY_KEY)) ? true : false) + " & DataType = " + dtls.get(Constant.ATTR_DATATYPE));
+
+				String[] array = {dtls.get(Constant.ATTR_TABLE_COL), fullCol,
+						"Y".equalsIgnoreCase(dtls.get(Constant.ATTR_IS_PRIMERY_KEY))? "P": "N", dtls.get(Constant.ATTR_DATATYPE)};
+				
+				mapingDtlsMap.put(dtls.get(Constant.ATTR_TABLE_COL), Arrays.asList(array));
+			}
+			
 			if (mapingDtlsMap == null || mapingDtlsMap.isEmpty()) {
 				throw new Exception("Conf Map can not be null");
 			}
@@ -204,5 +256,65 @@ public class QueryGeneratorUtil {
 			throw new Exception("Error occureed in Retriving Column Value for Row ::"+rowNumber+"	& Value: "+str +"	& Pattern : "+ pattren);
 		}
 		return null;
+	}
+	
+	//Load Mapping File
+	private static NodeList loadMappingFile(String mappingConfFile) throws Exception{
+		NodeList mappings = null;
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document document = builder.parse(mappingConfFile);
+			if (document != null) {
+				Element root = document.getDocumentElement();
+				mappings = root.getElementsByTagName(Constant.TAG_JOB_TYPE);
+			} else{
+				throw new Exception("XML Mapping Document cannot be null");
+			}
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return mappings;
+	}
+	
+	//Load Property from mapping File
+	private static Map<String, Map<String,Object>> loadMappingDetails(NodeList mappings ){
+		Map<String, Map<String,Object>> xlTableMap = new HashMap<>();
+		try {
+			for(int mapingCnt=0; mapingCnt < mappings.getLength(); mapingCnt++){
+				Node mapping = mappings.item(mapingCnt);
+				NamedNodeMap mappingAttrs = mapping.getAttributes();
+				Map<String,Object> outerMap = new HashMap<>();
+				outerMap.put(Constant.ATTR_JOB_TABLE, mappingAttrs.getNamedItem(Constant.ATTR_JOB_TABLE).getTextContent());
+				NodeList columns = ((Element)mapping).getElementsByTagName(Constant.ATTR_TABLE_NODE);
+				List<Map<String,String>> innerMapLst = new ArrayList<>();
+				for(int colCnt=0; colCnt<columns.getLength(); colCnt++){
+					Map<String,String> innerMap = new HashMap<>();
+					Node column = columns.item(colCnt);
+					NamedNodeMap columnMap = column.getAttributes();
+					/*innerMap.put(Constant.ATTR_XLS_COL, columnMap.getNamedItem(Constant.ATTR_XLS_COL).getTextContent());
+					innerMap.put(Constant.ATTR_TABLE_COL, columnMap.getNamedItem(Constant.ATTR_TABLE_COL).getTextContent());
+					innerMap.put(Constant.ATTR_PATTRN, columnMap.getNamedItem(Constant.ATTR_PATTRN).getTextContent());
+					innerMap.put(Constant.ATTR_IS_PRIMERY_KEY, columnMap.getNamedItem(Constant.ATTR_IS_PRIMERY_KEY).getTextContent());
+					innerMap.put(Constant.ATTR_DATATYPE, columnMap.getNamedItem(Constant.ATTR_DATATYPE).getTextContent());*/
+					
+					for (String attr: excelMappingAttr) {
+						if(columnMap.getNamedItem(attr)!=null){
+							innerMap.put(attr, columnMap.getNamedItem(attr).getTextContent());
+						}else{
+							throw new Exception("Error: Attribute "+attr +" doesn't exist in XML mapping ");
+						}
+					}
+					if(Constant.ATTR_DATATYPE.equalsIgnoreCase(innerMap.get(Constant.ATTR_DATATYPE))){
+						innerMap.put(Constant.ATTR_DATAFORMAT, columnMap.getNamedItem(Constant.ATTR_DATAFORMAT).getTextContent());
+					}
+					innerMapLst.add(innerMap);
+				}
+				outerMap.put(Constant.TABLE_META_DATA, innerMapLst);
+				xlTableMap.put(mappingAttrs.getNamedItem(Constant.ATTR_JOB_ALIAS).getTextContent(), outerMap);
+			}
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+		}
+		return xlTableMap;
 	}
 }
