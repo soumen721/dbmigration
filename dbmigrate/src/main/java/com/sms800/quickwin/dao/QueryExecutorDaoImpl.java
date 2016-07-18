@@ -75,13 +75,13 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 			}
 			bufferWritter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(compFileName), "utf-8"));
 
-			if (updateQueryList != null && !updateQueryList.isEmpty()) {
-				for (int i = 0; i < updateQueryList.size(); i++) {
+			if (errorUpdateQueryList != null && !errorUpdateQueryList.isEmpty()) {
+				for (int i = 0; i < errorUpdateQueryList.size(); i++) {
 					bufferWritter.write(errorUpdateQueryList.get(i) + "\n");
 				}
 			}
 			bufferWritter.write("---------------------------------------------------------------------------------- \n");
-			if (insertQueryList != null && !insertQueryList.isEmpty()) {
+			if (errorInsertQueryList != null && !errorInsertQueryList.isEmpty()) {
 				for (int i = 0; i < errorInsertQueryList.size(); i++) {
 					bufferWritter.write(errorInsertQueryList.get(i) + "\n");
 				}
