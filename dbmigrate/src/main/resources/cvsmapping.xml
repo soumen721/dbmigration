@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<mapping table="node" alias="node">
+		<column cvsColumn="0" toTableCloumn="NodeName" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="1" toTableCloumn="NodeDescription" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="NodeType" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="countrycode" alias="COUNTRY">
+		<column cvsColumn="0" toTableCloumn="countryCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="1" toTableCloumn="effectiveDate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="0" toTableCloumn="countryName" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+
+	<mapping table="multicountrycode" alias="MULTICOUNTRY">
+		<column cvsColumn="0" toTableCloumn="mcIdentifier" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="1" toTableCloumn="countryCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="0" toTableCloumn="countryName" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+
+	<mapping table="state" alias="STATENPA">
+		<column cvsColumn="SNSTATE" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="SNDATE" toTableCloumn="effectivedate" datatype="DATE" pattern="0" dataformat="yyyyMMdd" isPrimaryKey="Y" />
+		<column cvsColumn="SNSTATE" toTableCloumn="stateName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="SNIND" toTableCloumn="actionIndicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="areacode" alias="COUNTRYNPA">
+		<column cvsColumn="1" toTableCloumn="areacode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="lata" alias="COUNTRYLATA">
+		<column cvsColumn="1" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="label" alias="label">
+		<column cvsColumn="1" toTableCloumn="labelName" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="D" toTableCloumn="labelType" datatype="V" pattern="LT" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="labelValue" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="3" toTableCloumn="respOrg" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	<mapping table="lata" alias="lata12">
+		<column cvsColumn="1" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	<mapping table="lata" alias="lata12">
+		<column cvsColumn="1" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="countrynpamap" alias="COUNTRYNPA_12">
+		<column cvsColumn="0" toTableCloumn="countryCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="1" toTableCloumn="areaCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="countrylatamap" alias="COUNTRYLATA_12">
+		<column cvsColumn="0" toTableCloumn="countryCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="1" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="statenpamap" alias="STATENPA_12">
+		<column cvsColumn="1" toTableCloumn="statecode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="areaCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="4" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="npalatamap" alias="NPALATA">
+		<column cvsColumn="1" toTableCloumn="areaCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="4" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="npanxxlatamap" alias="NPANXXLATA">
+		<column cvsColumn="2" toTableCloumn="areaCode" datatype="V" pattern="0-2" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="nxxCode" datatype="V" pattern="4-6" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="lataCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="4" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="5" toTableCloumn="actionindicator" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+	<mapping table="carrieragreement" alias="CARRIER">
+		<column cvsColumn="1" toTableCloumn="carrierCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="entityCode" datatype="V" pattern="0-1" isPrimaryKey="Y" />
+	</mapping>
+	
+	<mapping table="notifyapprovalsettings" alias="notifyapprovalsettings">
+		<column cvsColumn="1" toTableCloumn="carrierCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="entityCode" datatype="V" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="3" toTableCloumn="businessEntity" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="4" toTableCloumn="addRouting" datatype="V" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="3" toTableCloumn="changeRouting" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="4" toTableCloumn="DeleteRoutingScp" datatype="V" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="4" toTableCloumn="DeleteRoutingDisc" datatype="V" pattern="0" isPrimaryKey="N" />
+	</mapping>
+	
+</config>
