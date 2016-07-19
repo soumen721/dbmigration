@@ -2,9 +2,7 @@ package com.sms800.quickwin.util;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -318,7 +316,7 @@ public class QueryGeneratorUtil {
 								val=getExactVal(val, "["+individual.get(Constant.ATTR_PATTRN)+"]", lineNumber);
 								prevVal.put(cvsCol,val);
 								
-								if("858".equals(val)){
+								if("681".equals(val)){
 									System.out.println("------------------------------------");
 									
 								}
@@ -348,7 +346,7 @@ public class QueryGeneratorUtil {
 									}
 								}
 							}
-							System.out.println("*******************************"+ finalInsertQuery);
+							System.out.println("*********Line NO: **********************"+ lineNumber+ finalInsertQuery);
 							
 							finalInsertQuery=Constant.INSERT_QUERY_1 +tableName+"("+tableCol.toString().substring(0, tableCol.toString().lastIndexOf(","))+") values "
 									+ "("+ tableVal.toString().substring(0, tableVal.toString().lastIndexOf(",")) + ")";
@@ -379,7 +377,7 @@ public class QueryGeneratorUtil {
 	
 	private static boolean rejectLine(String line, String rejectPtrn){
 		if(line.trim().length()==0)return true;
-		String rejectionPattern=".*(\\tPAGE\\t).*";
+		String rejectionPattern=rejectPtrn	;	//".*(\\tPAGE\\t).*";
 		Pattern r = Pattern.compile(rejectionPattern);
 		Matcher m = r.matcher(line);
 		if (m.find( ))return true;
