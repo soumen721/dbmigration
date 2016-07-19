@@ -22,8 +22,8 @@ import com.sms800.quickwin.util.Constant;
 import com.sms800.quickwin.util.QueryGeneratorUtil;
 
 @Service
-public class ReadExcelFileServiceImpl implements ReadExcelFileService {
-	private static final Logger logger = LoggerFactory.getLogger(ReadExcelFileServiceImpl.class);
+public class ReadDataFileServiceImpl implements ReadFileService {
+	private static final Logger logger = LoggerFactory.getLogger(ReadDataFileServiceImpl.class);
 
 	@Autowired
 	QueryExecutorDao queryExecutorDao;
@@ -32,10 +32,60 @@ public class ReadExcelFileServiceImpl implements ReadExcelFileService {
 	
 	@Override
 	public List<CustomerTemplateDTO> readExcelData(Map<String, String> confMap) throws IOException {
-		logger.debug("Enter into Method :: ReadExcelFileServiceImpl.readExcelData()");
+		logger.debug("Enter into Method :: ReadDataFileServiceImpl.readExcelData()");
 
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
 		String fileName = confMap.get(Constant.EXCEL_FILE_PATH).trim();
+		String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
+		logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
+		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
+		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
+
+		try {
+			FileInputStream fis = new FileInputStream(fileName);
+			Workbook workbook = null;
+			if (fileName.toLowerCase().endsWith("xlsx")) {
+				workbook = new XSSFWorkbook(fis);
+			} else if (fileName.toLowerCase().endsWith("xls")) {
+				workbook = new HSSFWorkbook(fis);
+			}
+
+			Sheet sheet = workbook.getSheet(sheetName);
+			if(sheet!=null){
+				queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet);
+				//logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
+				//logger.debug("\n Final Update Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
+	
+				// Generate List Query DAO Call
+				if (isSqlGenerate) {
+					queryGeneratorService.generateQuery(confMap, queryMap);
+				}
+				// Execute List Query DAO Call
+				if (isSqlExecute) {
+					int noOfFailQuery=queryExecutorDao.executeQuery(confMap, queryMap);
+					logger.info("NO of Fail Query : "+ noOfFailQuery);
+				}
+			} else{
+				throw new Exception("Sheet Can not be null");
+			}
+			fis.close();
+		} catch (FileNotFoundException exc) {
+			//e.printStackTrace();
+			logger.debug("[[ Error occureed File Not Found:: ReadExcelFileServiceImpl.readExcelData() , Exception : "+ exc.getMessage()+ " ]]");
+		} catch (Exception exc) {
+			//e.printStackTrace();
+			logger.debug("[[ Error occureed :: ReadExcelFileServiceImpl.readExcelData() , Error : "+ exc.getMessage() +" ]]");
+		}
+		logger.debug("Exit from Method :: ReadExcelFileServiceImpl.readExcelData()");
+		return null;
+	}
+
+	@Override
+	public List<CustomerTemplateDTO> readCvsData(Map<String, String> confMap) throws IOException {
+		logger.debug("Enter into Method :: ReadDataFileServiceImpl.readCvsData()");
+
+		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
+		String fileName = confMap.get(Constant.CVS_FILE_PATH).trim();
 		String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
 		logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;

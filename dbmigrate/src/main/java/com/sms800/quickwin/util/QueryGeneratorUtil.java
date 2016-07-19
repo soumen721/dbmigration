@@ -47,9 +47,8 @@ public class QueryGeneratorUtil {
 		List<String> updateQueryList = new ArrayList<String>();
 		try {
 			int startRow = Integer.parseInt(confMap.get(Constant.START_ROW).trim());
-			int endRow = Integer.parseInt(confMap.get(Constant.END_ROW).trim());
-			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
-			String columnMapping = confMap.get(Constant.COLUMN_MAPPING).trim();
+			int endRow = Integer.parseInt(confMap.get(Constant.END_ROW).trim());			
+			//String columnMapping = confMap.get(Constant.COLUMN_MAPPING).trim();
 			
 			// Populate Column Mapping Details
 			logger.debug("\n");
@@ -92,10 +91,11 @@ public class QueryGeneratorUtil {
 			//New Implementation
 			NodeList nodeList = loadMappingFile(confMap.get(Constant.EXCEL_MAPPING_FILE_NAME));			
 			Map<String, Map<String,Object>> fullConfMap= loadMappingDetails(nodeList);
+			Map<String,Object> map =null;
 			List<Map<String,String>> mapingList=null;
 			
 			if(fullConfMap!=null && !fullConfMap.isEmpty()){
-				Map<String,Object> map = fullConfMap.get(confMap.get(Constant.EXCEL_ALIAS_TO_READ));
+				map= fullConfMap.get(confMap.get(Constant.EXCEL_ALIAS_TO_READ));
 				if(map!=null && !map.isEmpty()){
 					mapingList=(List<Map<String, String>>) map.get(Constant.TABLE_META_DATA);
 				} else{
@@ -125,6 +125,9 @@ public class QueryGeneratorUtil {
 				
 				mapingDtlsMap.put(dtls.get(Constant.ATTR_TABLE_COL), Arrays.asList(array));
 			}
+			String tableName = map.get(Constant.ATTR_JOB_TABLE).toString();
+			confMap.put(Constant.DB_TABLE_NAME, tableName);
+			logger.info("Table Name :"+ tableName);
 			
 			if (mapingDtlsMap == null || mapingDtlsMap.isEmpty()) {
 				throw new Exception("Conf Map can not be null");
@@ -291,11 +294,6 @@ public class QueryGeneratorUtil {
 					Map<String,String> innerMap = new HashMap<>();
 					Node column = columns.item(colCnt);
 					NamedNodeMap columnMap = column.getAttributes();
-					/*innerMap.put(Constant.ATTR_XLS_COL, columnMap.getNamedItem(Constant.ATTR_XLS_COL).getTextContent());
-					innerMap.put(Constant.ATTR_TABLE_COL, columnMap.getNamedItem(Constant.ATTR_TABLE_COL).getTextContent());
-					innerMap.put(Constant.ATTR_PATTRN, columnMap.getNamedItem(Constant.ATTR_PATTRN).getTextContent());
-					innerMap.put(Constant.ATTR_IS_PRIMERY_KEY, columnMap.getNamedItem(Constant.ATTR_IS_PRIMERY_KEY).getTextContent());
-					innerMap.put(Constant.ATTR_DATATYPE, columnMap.getNamedItem(Constant.ATTR_DATATYPE).getTextContent());*/
 					
 					for (String attr: excelMappingAttr) {
 						if(columnMap.getNamedItem(attr)!=null){

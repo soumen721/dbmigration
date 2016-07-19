@@ -8,13 +8,18 @@ public class Constant {
 	public static String DB_USER_PASSWORD="quickwin.db.user.password";
 	public static String DB_TABLE_NAME="db.table.name";
 	public static String EXCEL_MAPPING_FILE_NAME="excel.map.file.name";
+	public static String CVS_MAPPING_FILE_NAME="cvs.map.file.name";
 	public static String EXCEL_ALIAS_TO_READ="excel.alias.to.read";
+	public static String FILE_TYPE="read.file.type";	
 	
 	public static String EXCEL_FILE_PATH="excel.file.path";
 	public static String EXCEL_SHEET_NAME="excel.sheet.name";
+	public static String CVS_FILE_PATH="cvs.file.path";
 	public static String SQL_GEN_FLAG="sql.query.generate";
 	public static String SQL_EXEC_FLAG="sql.query.execute";
 	public static String SQL_UPDATE_STATUS="existing.record.update";
+	public static String FILE_TIPE_CVS="cvs";
+	public static String FILE_TIPE_EXCEL="excel";
 	
 	public static String START_ROW="start.row.num";
 	public static String END_ROW="end.row.num";
@@ -55,4 +60,5 @@ public class Constant {
 	public static  String ATTR_PATTRN ="pattern";
 	public static  String ATTR_IS_PRIMERY_KEY ="isPrimaryKey";
 	public static  String ATTR_DATAFORMAT = "dataformat";
+	
 }
