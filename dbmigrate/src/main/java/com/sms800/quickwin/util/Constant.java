@@ -9,7 +9,7 @@ public class Constant {
 	public static String DB_TABLE_NAME="db.table.name";
 	public static String EXCEL_MAPPING_FILE_NAME="excel.map.file.name";
 	public static String CVS_MAPPING_FILE_NAME="cvs.map.file.name";
-	public static String EXCEL_ALIAS_TO_READ="excel.alias.to.read";
+	public static String ALIAS_TO_READ="file.alias.to.read";
 	public static String FILE_TYPE="read.file.type";	
 	
 	public static String EXCEL_FILE_PATH="excel.file.path";
@@ -20,6 +20,8 @@ public class Constant {
 	public static String SQL_UPDATE_STATUS="existing.record.update";
 	public static String FILE_TIPE_CVS="cvs";
 	public static String FILE_TIPE_EXCEL="excel";
+	public static String CVS_LINE_REJ_PATTRN = "cvs.reject.line.pattern";
+	public static String CVS_COLMN_DEL = "cvs.column.delemeter";
 	
 	public static String START_ROW="start.row.num";
 	public static String END_ROW="end.row.num";
@@ -38,6 +40,7 @@ public class Constant {
 	public static String DATA_TYP_VARCHAR="V";
 	public static String DATA_TYP_NUMBER="I";
 	public static String DATA_TYP_DATE="D";
+	public static String YES_CONSTANT="Y";
 	
 	public static String INSERT_QUERY_1="insert into ";
 	public static String INSERT_QUERY_2=" values ";
@@ -55,6 +58,7 @@ public class Constant {
 	public static  String ATTR_JOB_TABLE = "table";
 	public static  String ATTR_TABLE_NODE = "column";
 	public static  String ATTR_XLS_COL = "excelColumn";
+	public static  String ATTR_CVS_COL ="cvsColumn";
 	public static  String ATTR_TABLE_COL = "toTableCloumn";
 	public static  String ATTR_DATATYPE = "datatype";
 	public static  String ATTR_PATTRN ="pattern";

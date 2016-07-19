@@ -40,13 +40,13 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 		for (int i = 0; i < insertQueryList.size(); i++) {
 			try {
 				int updateCnt = 0;
-				if(isExistingRecordUpdate){
+				if(isExistingRecordUpdate && updateQueryList!=null &&  !updateQueryList.isEmpty() && updateQueryList.size()==insertQueryList.size()){
 					try {
 						updateCnt = jdbcTemplate.update(updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1]);
 					} catch (Exception exc) {
 						failCont++;
 						errorUpdateQueryList.add(updateQueryList.get(i));
-						logger.debug("Exception in Date for Excel Row ::"+updateQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
+						logger.debug("Exception in Date for Line no ::"+updateQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
 									" For Query ==>> " + updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + " :: " + exc.getMessage());
 					}
 				}
@@ -56,7 +56,7 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 			} catch (Exception exc) {
 				failCont++;
 				errorInsertQueryList.add(insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1]);
-				logger.debug("Exception in Date for Excel Row ::"+insertQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
+				logger.debug("Exception in Date for Line no ::"+insertQueryList.get(i).split(Constant.TILD_DELEMETER)[0]+
 						" For Query ==>> " + insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + " :: " + exc.getMessage());
 			}
 		}

@@ -71,12 +71,12 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 			fis.close();
 		} catch (FileNotFoundException exc) {
 			//e.printStackTrace();
-			logger.debug("[[ Error occureed File Not Found:: ReadExcelFileServiceImpl.readExcelData() , Exception : "+ exc.getMessage()+ " ]]");
+			logger.debug("[[ Error occureed File Not Found:: ReadDataFileServiceImpl.readExcelData() , Exception : "+ exc.getMessage()+ " ]]");
 		} catch (Exception exc) {
 			//e.printStackTrace();
-			logger.debug("[[ Error occureed :: ReadExcelFileServiceImpl.readExcelData() , Error : "+ exc.getMessage() +" ]]");
+			logger.debug("[[ Error occureed :: ReadDataFileServiceImpl.readExcelData() , Error : "+ exc.getMessage() +" ]]");
 		}
-		logger.debug("Exit from Method :: ReadExcelFileServiceImpl.readExcelData()");
+		logger.debug("Exit from Method :: ReadDataFileServiceImpl.readExcelData()");
 		return null;
 	}
 
@@ -86,26 +86,14 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
 		String fileName = confMap.get(Constant.CVS_FILE_PATH).trim();
-		String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
-		logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
+		logger.debug("CVS File Name ::" + fileName );
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
 
 		try {
-			FileInputStream fis = new FileInputStream(fileName);
-			Workbook workbook = null;
-			if (fileName.toLowerCase().endsWith("xlsx")) {
-				workbook = new XSSFWorkbook(fis);
-			} else if (fileName.toLowerCase().endsWith("xls")) {
-				workbook = new HSSFWorkbook(fis);
-			}
-
-			Sheet sheet = workbook.getSheet(sheetName);
-			if(sheet!=null){
-				queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet);
-				//logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
-				//logger.debug("\n Final Update Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
-	
+			queryMap=QueryGeneratorUtil.generateQueryFrmCVS(confMap);
+			
+			if(queryMap!=null && !queryMap.isEmpty()){
 				// Generate List Query DAO Call
 				if (isSqlGenerate) {
 					queryGeneratorService.generateQuery(confMap, queryMap);
@@ -116,17 +104,13 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 					logger.info("NO of Fail Query : "+ noOfFailQuery);
 				}
 			} else{
-				throw new Exception("Sheet Can not be null");
+				throw new Exception("No data found ");
 			}
-			fis.close();
-		} catch (FileNotFoundException exc) {
-			//e.printStackTrace();
-			logger.debug("[[ Error occureed File Not Found:: ReadExcelFileServiceImpl.readExcelData() , Exception : "+ exc.getMessage()+ " ]]");
 		} catch (Exception exc) {
 			//e.printStackTrace();
-			logger.debug("[[ Error occureed :: ReadExcelFileServiceImpl.readExcelData() , Error : "+ exc.getMessage() +" ]]");
+			logger.debug("[[ Error occureed :: ReadDataFileServiceImpl.readCvsData() , Error : "+ exc.getMessage() +" ]]");
 		}
-		logger.debug("Exit from Method :: ReadExcelFileServiceImpl.readExcelData()");
+		logger.debug("Exit from Method :: ReadDataFileServiceImpl.readCvsData()");
 		return null;
 	}
 
