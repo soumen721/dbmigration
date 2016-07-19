@@ -31,9 +31,9 @@ import org.w3c.dom.NodeList;
 public class QueryGeneratorUtil {
 	private static final Logger logger = LoggerFactory.getLogger(QueryGeneratorUtil.class);
 	
-	static String excelMappingAttr[] = {Constant.ATTR_XLS_COL, Constant.ATTR_TABLE_COL, Constant.ATTR_PATTRN,
+	static String[] excelMappingAttr = {Constant.ATTR_XLS_COL, Constant.ATTR_TABLE_COL, Constant.ATTR_PATTRN,
 										Constant.ATTR_IS_PRIMERY_KEY, Constant.ATTR_DATATYPE};
-	static String cvsMappingAttr[] = {Constant.ATTR_CVS_COL, Constant.ATTR_TABLE_COL, Constant.ATTR_PATTRN,
+	static String[] cvsMappingAttr = {Constant.ATTR_CVS_COL, Constant.ATTR_TABLE_COL, Constant.ATTR_PATTRN,
 			Constant.ATTR_IS_PRIMERY_KEY, Constant.ATTR_DATATYPE};
 	
 	static StringBuilder insertQuery = new StringBuilder(Constant.INSERT_QUERY_1);
@@ -255,6 +255,7 @@ public class QueryGeneratorUtil {
 				Map<String,Object> fileMetaDataTable = mappingConfMap.get(confMap.get(Constant.ALIAS_TO_READ));
 				
 				String tableName = fileMetaDataTable.get(Constant.ATTR_JOB_TABLE).toString();
+				confMap.put(Constant.DB_TABLE_NAME, tableName);
 				//String insertSQL = "INSERT IGNORE INTO "+tableName+" ";
 				String tableCol = "";String tableVal=""; String delim=""; 
 									
@@ -290,7 +291,9 @@ public class QueryGeneratorUtil {
 					//line = line.replaceAll("(\\t)+", "\t");
 					Pattern r = Pattern.compile(colPattern);
 					Matcher m = r.matcher(line);
-					if (m.find( )) {
+					
+					String header="SNSTATE	SNNPA	SNDATE	SNIND";
+					if (line.contains(header)) {
 						isCaptionIdentified = true;
 						String[] attrs = line.split(confMap.get(Constant.CVS_COLMN_DEL));
 						for(int attrCnt=0;attrCnt<attrs.length;attrCnt++){
@@ -298,29 +301,29 @@ public class QueryGeneratorUtil {
 								mapPositon.put( attrs[attrCnt],attrCnt);
 							}
 						}
+						lineNumber++;
 						scnr.nextLine();
 					}else{
 						if(isCaptionIdentified){
 							String[] vals = line.split(confMap.get(Constant.CVS_COLMN_DEL));
 							//int queryPos = 1;
 							tableVal="";
-							tableCol="";
+							tableCol="";String val ="";
 							for(Map<String,String> individual:fileMetaData){
 								boolean isPrimaryKey=Constant.YES_CONSTANT.equalsIgnoreCase(individual.get(Constant.ATTR_IS_PRIMERY_KEY))? true:false;
 								String cvsCol = individual.get(Constant.ATTR_CVS_COL);
-								int pos = mapPositon.get(cvsCol);
-								String val = vals[pos];
+								if(Constant.DFLT_COLMN_NAME.equalsIgnoreCase(cvsCol)){
+									val = individual.get(Constant.ATTR_DFLT_VAL);
+								} else{
+									int pos = mapPositon.get(cvsCol);
+									val = vals[pos];
+								}
 								if(val.trim().length()==0){
 									val = prevVal.get(cvsCol);
 								}
 								val=getExactVal(val, "["+individual.get(Constant.ATTR_PATTRN)+"]", lineNumber);
 								prevVal.put(cvsCol,val);
-								
-								if("681".equals(val)){
-									System.out.println("------------------------------------");
-									
-								}
-								
+																
 								if("INT".equalsIgnoreCase(individual.get(Constant.ATTR_DATATYPE))){
 									tableVal += Integer.parseInt(val) +", ";
 									updateQuery.append(" "+ individual.get(Constant.ATTR_TABLE_COL) +"=" + val + ", ");
@@ -346,15 +349,17 @@ public class QueryGeneratorUtil {
 									}
 								}
 							}
-							System.out.println("*********Line NO: **********************"+ lineNumber+ finalInsertQuery);
 							
 							finalInsertQuery=Constant.INSERT_QUERY_1 +tableName+"("+tableCol.toString().substring(0, tableCol.toString().lastIndexOf(","))+") values "
 									+ "("+ tableVal.toString().substring(0, tableVal.toString().lastIndexOf(",")) + ")";
 							finalUpdateQuery = updateQuery.toString().substring(0, updateQuery.toString().lastIndexOf(","))  
 									+ whereQuery.substring(0, whereQuery.lastIndexOf("and"))+";";
 							
-							insertQueryList.add(lineNumber+Constant.EXCEL_ROW_INCREMENTER+ Constant.TILD_DELEMETER+ finalInsertQuery);
-							updateQueryList.add(lineNumber+Constant.EXCEL_ROW_INCREMENTER+ Constant.TILD_DELEMETER+ finalUpdateQuery);
+							//logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalInsertQuery);
+							logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalUpdateQuery);
+							
+							insertQueryList.add(lineNumber+ Constant.TILD_DELEMETER+ finalInsertQuery);
+							updateQueryList.add(lineNumber+ Constant.TILD_DELEMETER+ finalUpdateQuery);
 						}
 					}
 				}
@@ -444,6 +449,9 @@ public class QueryGeneratorUtil {
 						}else{
 							throw new Exception("Error: Attribute "+attr +" doesn't exist in XML mapping ");
 						}
+					}
+					if(Constant.DFLT_COLMN_NAME.equalsIgnoreCase(innerMap.get(Constant.ATTR_CVS_COL))){
+						innerMap.put(Constant.ATTR_DFLT_VAL, columnMap.getNamedItem(Constant.ATTR_DFLT_VAL).getTextContent());
 					}
 					if("DATE".equalsIgnoreCase(innerMap.get(Constant.ATTR_DATATYPE))){
 						innerMap.put(Constant.ATTR_DATAFORMAT, columnMap.getNamedItem(Constant.ATTR_DATAFORMAT).getTextContent());

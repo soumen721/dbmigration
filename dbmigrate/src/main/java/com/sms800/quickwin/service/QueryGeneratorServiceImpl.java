@@ -29,8 +29,8 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 			logger.debug("Number of Query :: " + queryMap.get("insertQueryList").size() + "||" + queryMap.get("insertQueryList").size());
 			String filePath = confMap.get(Constant.SQL_FILE_PATH).trim();
 			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
-			String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
-			String compFileName = filePath + "\\" + sheetName+"_"+tableName + ".sql";
+			String aliasName = confMap.get(Constant.ALIAS_TO_READ).trim();
+			String compFileName = filePath + "\\" + aliasName+"_"+tableName + ".sql";
 			
 			logger.debug("Generated SQL File Path : "+ compFileName);
 			File file = new File(compFileName);

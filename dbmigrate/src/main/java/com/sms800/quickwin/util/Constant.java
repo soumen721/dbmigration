@@ -59,10 +59,12 @@ public class Constant {
 	public static  String ATTR_TABLE_NODE = "column";
 	public static  String ATTR_XLS_COL = "excelColumn";
 	public static  String ATTR_CVS_COL ="cvsColumn";
+	public static  String ATTR_DFLT_VAL= "dfltValue";
 	public static  String ATTR_TABLE_COL = "toTableCloumn";
 	public static  String ATTR_DATATYPE = "datatype";
 	public static  String ATTR_PATTRN ="pattern";
 	public static  String ATTR_IS_PRIMERY_KEY ="isPrimaryKey";
 	public static  String ATTR_DATAFORMAT = "dataformat";
-	
+
+	public static  String DFLT_COLMN_NAME= "DFLT_VAL";
 }
