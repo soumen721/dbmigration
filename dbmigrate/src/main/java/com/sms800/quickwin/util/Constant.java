@@ -37,9 +37,9 @@ public class Constant {
 	
 	public static String DFLT_VAL_CONSTANT="D";
 	public static String PRIMARY_KEY="P";
-	public static String DATA_TYP_VARCHAR="V";
-	public static String DATA_TYP_NUMBER="I";
-	public static String DATA_TYP_DATE="D";
+	public static String DATA_TYP_VARCHAR="VARCHAR";
+	public static String DATA_TYP_NUMBER="INT";
+	public static String DATA_TYP_DATE="DATE";
 	public static String YES_CONSTANT="Y";
 	
 	public static String INSERT_QUERY_1="insert into ";

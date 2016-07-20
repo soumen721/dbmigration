@@ -23,8 +23,9 @@
 
 	<mapping table="state" alias="STATENPA">
 		<column cvsColumn="SNSTATE" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="SNNPA" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column cvsColumn="SNDATE" toTableCloumn="effectivedate" datatype="DATE" pattern="0" dataformat="yyyyMMdd" isPrimaryKey="Y" />
-		<column cvsColumn="SNSTATE" toTableCloumn="stateName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		
 		<column cvsColumn="SNIND" toTableCloumn="actionIndicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
@@ -41,12 +42,12 @@
 	</mapping>
 	
 	<mapping table="label" alias="label">
-		<column cvsColumn="RZLABEL" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column cvsColumn="RZDATE" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column cvsColumn="DFLT_VAL" dfltValue="LT" toTableCloumn="labelType" datatype="VARCHAR" pattern="LT" isPrimaryKey="Y" />
-		<column cvsColumn="RZLATA" toTableCloumn="labelValue" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
-		<column cvsColumn="RZIND" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column cvsColumn="RZRESP" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
+		<column cvsColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="LT" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column cvsColumn="2" toTableCloumn="labelValue" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column cvsColumn="3" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	<mapping table="lata" alias="lata12">
 		<column cvsColumn="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
@@ -78,8 +79,6 @@
 		<column cvsColumn="SNNPA" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column cvsColumn="SNDATE" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
 		<column cvsColumn="SNIND" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column cvsColumn="SNSTATE" toTableCloumn="statename" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column cvsColumn="DFLT_VAL" dfltValue="LT" toTableCloumn="labelType" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 	</mapping>
 	
 	<mapping table="npalatamap" alias="NPALATA">

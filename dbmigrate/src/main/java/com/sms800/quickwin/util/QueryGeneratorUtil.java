@@ -198,7 +198,7 @@ public class QueryGeneratorUtil {
 							updateQuery.append(" "+ columnName +"='" + columnVal + "', ");
 						} else {
 							valQuery.append(columnVal + ", ");
-							updateQuery.append(" "+ columnName +"='" + columnVal + "', ");
+							updateQuery.append(" "+ columnName +"=" + columnVal + ", ");
 						}
 												
 						if (isPrimaryKey) {
