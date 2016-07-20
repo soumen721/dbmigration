@@ -64,7 +64,7 @@
 		<column excelColumn="4" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="5" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
 	</mapping>
-	<mapping table="label" alias="NPANXXLABEL">
+	<mapping table="label_tmp" alias="NPANXXLABEL">
 		<column excelColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column excelColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="NN" isPrimaryKey="Y" />
 		<column excelColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
@@ -118,12 +118,12 @@
 		<column excelColumn="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0-1" isPrimaryKey="Y" />
 	</mapping>
 	
-	<mapping table="notifyapprovalsettings" alias="notifyapprovalsettings">
+	<mapping table="notifyapprovalsettings" alias="NOTIFICATION">
 		<column excelColumn="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column excelColumn="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column excelColumn="3" toTableCloumn="businessEntity" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column excelColumn="3" toTableCloumn="businessEntity" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="4" toTableCloumn="addRouting" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column excelColumn="3" toTableCloumn="changeRouting" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column excelColumn="3" toTableCloumn="changeRouting" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="4" toTableCloumn="DeleteRoutingScp" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="4" toTableCloumn="DeleteRoutingDisc" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
