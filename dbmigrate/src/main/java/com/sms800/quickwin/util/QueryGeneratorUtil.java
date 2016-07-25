@@ -60,39 +60,6 @@ public class QueryGeneratorUtil {
 			logger.debug("\n");
 			//String[] colsMapArray = columnMapping.split(Constant.TILD_DELEMETER);
 			Map<String, List<String>> mapingDtlsMap = new HashMap<String, List<String>>();
-			/*if (colsMapArray != null && colsMapArray.length > 0) {
-				for (String str : colsMapArray) {
-					String[] colDtls = str.split(Constant.PIPE_DELEMETER);
-					if (colDtls != null && colDtls.length == 4) {
-						for (String strCol : colDtls) {
-							if (strCol == null || "".equals(strCol)) {
-								throw new Exception("Column Conf Not Valid for Entry :: " + str + "	4'|' separated value Mandatory");
-							}
-						}
-
-						String colVal = null;
-						if (colDtls[1].startsWith(Constant.DFLT_VAL_CONSTANT)) {
-							colVal = "DefaultValue-" + colDtls[1].substring(1);
-						} else {
-							if (colDtls[1].split(Constant.HYPHEN_DELEMETER).length > 1) {
-								colVal = "PartialColumnValue";
-							} else {
-								colVal = "FullColumnValue";
-							}
-						}
-						logger.debug("Coulmn Details ==>> ColumnName = " + colDtls[0] + " & ColumnValue = " + colVal
-								+ " & isPrimaryKey = " + ("P".equalsIgnoreCase(colDtls[2]) ? true : false) + " & DataType = " + colDtls[3]);
-
-						String[] array = { colDtls[0], colDtls[1], colDtls[2], colDtls[3] };
-						mapingDtlsMap.put(colDtls[0], Arrays.asList(array));
-					} else {
-						throw new Exception("Column Conf Not Valid for :: " + str);
-					}
-				}
-			} else {
-				throw new Exception("Column Mapping Value not Proper");
-			}*/
-
 			//**************New **********/
 			//New Implementation
 			NodeList nodeList = loadMappingFile(confMap.get(Constant.EXCEL_MAPPING_FILE_NAME));			
@@ -265,6 +232,8 @@ public class QueryGeneratorUtil {
 				int lineNumber = 0;
 				String colPattern = ""; 
 				//String colRedPattern="";
+				List<String> patterns=new ArrayList<String>();
+				
 				Map<String,String> cols = new HashMap<>();
 				for(Map<String,String> innerMap:fileMetaData){
 					tableCol+=delim+innerMap.get(Constant.ATTR_TABLE_COL);
@@ -272,6 +241,9 @@ public class QueryGeneratorUtil {
 					delim=",";
 					cols.put(innerMap.get(Constant.ATTR_CVS_COL), "1");
 					colPattern+="(.*)("+innerMap.get(Constant.ATTR_CVS_COL)+")";
+					if(innerMap!=null && !innerMap.isEmpty() && !Constant.DFLT_COLMN_NAME.equalsIgnoreCase(innerMap.get("cvsColumn"))){
+						patterns.add("(.*)("+innerMap.get(Constant.ATTR_CVS_COL)+")");
+					}
 				}
 				//insertSQL+="("+tableCol+") values("+tableVal+")";
 				colPattern+="(.*)";
@@ -289,11 +261,11 @@ public class QueryGeneratorUtil {
 					if(rejectLine(line, confMap.get(Constant.CVS_LINE_REJ_PATTRN)))
 						continue;
 					//line = line.replaceAll("(\\t)+", "\t");
-					Pattern r = Pattern.compile(colPattern);
-					Matcher m = r.matcher(line);
+					//Pattern r = Pattern.compile(colPattern);
+					//Matcher m = r.matcher(line);
 					
-					String header="SNSTATE	SNNPA	SNDATE	SNIND";
-					if (line.contains(header)) {
+					if(validateExpession(patterns, line)){
+					//if (line.contains(header)) {
 						isCaptionIdentified = true;
 						String[] attrs = line.split(confMap.get(Constant.CVS_COLMN_DEL));
 						for(int attrCnt=0;attrCnt<attrs.length;attrCnt++){
@@ -356,7 +328,7 @@ public class QueryGeneratorUtil {
 									+ whereQuery.substring(0, whereQuery.lastIndexOf("and"))+";";
 							
 							//logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalInsertQuery);
-							logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalUpdateQuery);
+							//logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalUpdateQuery);
 							
 							insertQueryList.add(lineNumber+ Constant.TILD_DELEMETER+ finalInsertQuery);
 							updateQueryList.add(lineNumber+ Constant.TILD_DELEMETER+ finalUpdateQuery);
@@ -389,7 +361,18 @@ public class QueryGeneratorUtil {
 		return false;
 	}
 	
-	
+	private static boolean validateExpession(List<String> patterns,String line){
+        for(int cnt=0;cnt<patterns.size();cnt++){
+               String pattern = patterns.get(cnt);
+               Pattern r = Pattern.compile(pattern);
+               Matcher m = r.matcher(line);
+               if (!m.find( )) {
+                     return false;
+               }
+        }
+        return true;
+}
+
 	private static String getExactVal(String str, String pattren, int rowNumber) throws Exception{
 		if(str!=null && !"".equals(str) && pattren!=null && !"".equals(pattren)){
 			String colPat=pattren.substring(pattren.indexOf("[")+1,pattren.length()-1);
