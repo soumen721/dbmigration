@@ -205,6 +205,7 @@ public class QueryGeneratorUtil {
 		return queryMap;
 	}
 
+	@SuppressWarnings("unused")
 	public static Map<String, List<String>> generateQueryFrmCVS(Map<String, String> confMap) throws Exception {
 		logger.debug("Enter into Method :: QueryGeneratorUtil.generateQueryFrmCVS()");
 		long startTime=System.currentTimeMillis();
