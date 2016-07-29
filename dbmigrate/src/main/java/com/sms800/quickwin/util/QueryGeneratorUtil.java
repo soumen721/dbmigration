@@ -44,7 +44,7 @@ public class QueryGeneratorUtil {
 	static StringBuilder valQuery = null;
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, List<String>> generateQueryFrmExcel(Map<String, String> confMap, Sheet sheet) throws Exception {
+	public static Map<String, List<String>> generateQueryFrmExcel(Map<String, String> confMap, Sheet sheet, String aliasToRead) throws Exception {
 		logger.debug("Enter into Method :: QueryGeneratorUtil.generateQueryFrmExcel()");
 		long startTime=System.currentTimeMillis();
 		
@@ -68,7 +68,7 @@ public class QueryGeneratorUtil {
 			List<Map<String,String>> mapingList=null;
 			
 			if(fullConfMap!=null && !fullConfMap.isEmpty()){
-				map= fullConfMap.get(confMap.get(Constant.ALIAS_TO_READ));
+				map= fullConfMap.get(aliasToRead);
 				if(map!=null && !map.isEmpty()){
 					mapingList=(List<Map<String, String>>) map.get(Constant.TABLE_META_DATA);
 				} else{
@@ -109,6 +109,7 @@ public class QueryGeneratorUtil {
 			logger.debug("\n");
 			
 			String columnQuery = mapingDtlsMap.keySet().toString().replaceAll("^\\[", "(").replaceAll("\\]", ")");
+			insertQuery = new StringBuilder(Constant.INSERT_QUERY_1);
 			insertQuery.append(" "+tableName+" ");
 			insertQuery.append(columnQuery);
 			insertQuery.append(Constant.INSERT_QUERY_2);
@@ -394,7 +395,7 @@ public class QueryGeneratorUtil {
 	}
 	
 	//Load Mapping File
-	private static NodeList loadMappingFile(String mappingConfFile) throws Exception{
+	public static NodeList loadMappingFile(String mappingConfFile) throws Exception{
 		NodeList mappings = null;
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

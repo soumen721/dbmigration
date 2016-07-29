@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.sms800.quickwin.dao.QueryExecutorDao;
 import com.sms800.quickwin.domain.CustomerTemplateDTO;
@@ -25,6 +29,8 @@ import com.sms800.quickwin.util.QueryGeneratorUtil;
 public class ReadDataFileServiceImpl implements ReadFileService {
 	private static final Logger logger = LoggerFactory.getLogger(ReadDataFileServiceImpl.class);
 
+	static String[] excelAliasMappingAttr = {Constant.EXCEL_FILE_NAME, Constant.EXCEL_SHEET_TO_READ, Constant.FILE_SEQ, Constant.ATTR_JOB_ALIAS};
+	
 	@Autowired
 	QueryExecutorDao queryExecutorDao;
 	@Autowired
@@ -37,37 +43,47 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
 		String fileName = confMap.get(Constant.EXCEL_FILE_PATH).trim();
 		String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
-		logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
+		//logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
-
-		try {
-			FileInputStream fis = new FileInputStream(fileName);
-			Workbook workbook = null;
-			if (fileName.toLowerCase().endsWith("xlsx")) {
-				workbook = new XSSFWorkbook(fis);
-			} else if (fileName.toLowerCase().endsWith("xls")) {
-				workbook = new HSSFWorkbook(fis);
-			}
-
-			Sheet sheet = workbook.getSheet(sheetName);
-			if(sheet!=null){
-				queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet);
-				//logger.debug("\n Final Insert Query to Execute :: \n " + queryMap.get(Constant.MAP_INSERT_KEY) +"\n");
-				//logger.debug("\n Final Update Query to Execute :: \n " + queryMap.get(Constant.MAP_UPDATE_KEY) +"\n");
+		FileInputStream fis=null;
+		try {			
+			NodeList nodeList = QueryGeneratorUtil.loadMappingFile(confMap.get(Constant.EXCEL_TO_ALIAS_MAP));		
+			Map<String, Map<String, String> > mappingConfMap= loadAliastoFileMapping(nodeList, excelAliasMappingAttr);
+			
+			for (String key : mappingConfMap.keySet()) {
+				fileName=confMap.get(Constant.EXCEL_FILE_PATH)+"/"+ mappingConfMap.get(key).get(Constant.EXCEL_FILE_NAME);
+				sheetName=mappingConfMap.get(key).get(Constant.EXCEL_SHEET_TO_READ);
+				logger.debug("-----------------------------------------------------------------------------------------------\n\n");
+				logger.debug("Reading EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
+				
+				fis = new FileInputStream(fileName);
+				Workbook workbook = null;
+				if (fileName.toLowerCase().endsWith("xlsx")) {
+					workbook = new XSSFWorkbook(fis);
+				} else if (fileName.toLowerCase().endsWith("xls")) {
+					workbook = new HSSFWorkbook(fis);
+				}
 	
-				// Generate List Query DAO Call
-				if (isSqlGenerate) {
-					queryGeneratorService.generateQuery(confMap, queryMap);
+				Sheet sheet = workbook.getSheet(sheetName);
+				if(sheet!=null){
+					queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet, mappingConfMap.get(key).get(Constant.ATTR_JOB_ALIAS));
+	
+					// Generate List Query DAO Call
+					if (isSqlGenerate) {
+						queryGeneratorService.generateQuery(confMap, queryMap);
+					}
+					// Execute List Query DAO Call
+					if (isSqlExecute) {
+						int noOfFailQuery=queryExecutorDao.executeQuery(confMap, queryMap);
+						logger.info("NO of Fail Query : "+ noOfFailQuery);
+					}
+				} else{
+					throw new Exception(confMap.get(Constant.EXCEL_SHEET_TO_READ) +" Sheet Not found");
 				}
-				// Execute List Query DAO Call
-				if (isSqlExecute) {
-					int noOfFailQuery=queryExecutorDao.executeQuery(confMap, queryMap);
-					logger.info("NO of Fail Query : "+ noOfFailQuery);
-				}
-			} else{
-				throw new Exception("Sheet Can not be null");
+				
 			}
+					
 			fis.close();
 		} catch (FileNotFoundException exc) {
 			//e.printStackTrace();
@@ -114,4 +130,29 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 		return null;
 	}
 
+	
+	//Load Property from mapping File
+	private static Map<String, Map<String, String> > loadAliastoFileMapping(NodeList mappings, String[] mappingAttr){
+		Map<String, Map<String, String> > xlTableMap = new TreeMap<>();
+		try {
+			for(int mapingCnt=0; mapingCnt < mappings.getLength(); mapingCnt++){
+				Map<String, String> innerMap=new HashMap<>(); 
+				Node mapping = mappings.item(mapingCnt);
+				NamedNodeMap mappingAttrs = mapping.getAttributes();
+			
+				for (String attr: mappingAttr) {
+					if(mappingAttrs.getNamedItem(attr)!=null){
+						innerMap.put(attr, mappingAttrs.getNamedItem(attr).getTextContent());
+					}else{
+						throw new Exception("Error: Attribute "+attr +" doesn't exist in XML mapping ");
+					}
+				}
+				xlTableMap.put(innerMap.get(Constant.FILE_SEQ), innerMap);
+			}
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+		}
+		return xlTableMap;
+	}
+		
 }

@@ -133,6 +133,13 @@ public class DBMigrateApplication implements CommandLineRunner {
 					logger.debug(Constant.EXCEL_MAPPING_FILE_NAME+ " property value can not be null or blank");
 				}
 					
+				if(environment.getProperty(Constant.EXCEL_TO_ALIAS_MAP)!=null && !"".equals(environment.getProperty(Constant.EXCEL_TO_ALIAS_MAP))){	
+					configMap.put(Constant.EXCEL_TO_ALIAS_MAP, environment.getProperty(Constant.EXCEL_TO_ALIAS_MAP));
+				} else{
+					isConfigValid=false;
+					logger.debug(Constant.EXCEL_TO_ALIAS_MAP+ " property value can not be null or blank");
+				}
+				
 				if(environment.getProperty(Constant.EXCEL_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.EXCEL_FILE_PATH))){	
 					configMap.put(Constant.EXCEL_FILE_PATH, environment.getProperty(Constant.EXCEL_FILE_PATH));
 				} else{
@@ -149,6 +156,7 @@ public class DBMigrateApplication implements CommandLineRunner {
 				} else{
 					configMap.put(Constant.END_ROW, "1000");
 				}
+				
 				
 				/*String columnMappingNmae=Constant.COLUMN_MAPPING+Constant.DOT_DELEMETER+ environment.getProperty(Constant.DB_TABLE_NAME);
 				if(environment.getProperty(columnMappingNmae)!=null && !"".equals(environment.getProperty(columnMappingNmae))){	

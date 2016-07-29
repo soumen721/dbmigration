@@ -67,4 +67,10 @@ public class Constant {
 	public static  String ATTR_DATAFORMAT = "dataformat";
 
 	public static  String DFLT_COLMN_NAME= "DFLT_VAL";
+	
+	public static  String EXCEL_TO_ALIAS_MAP="aliastoexcel.map.file.name";
+	public static  String EXCEL_FILE_NAME="excelFileName";
+	public static  String EXCEL_SHEET_TO_READ="sheetName"; 
+	//public static  String F="alias";
+	public static  String FILE_SEQ="seq";
 }
