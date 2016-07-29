@@ -72,7 +72,7 @@ public class QueryGeneratorUtil {
 				if(map!=null && !map.isEmpty()){
 					mapingList=(List<Map<String, String>>) map.get(Constant.TABLE_META_DATA);
 				} else{
-					throw new Exception("XML Mapping not proper");
+					throw new Exception("ALIAS to be read ...not found in Mapping Config File");
 				}
 			} else{
 				throw new Exception("XML Mapping not proper");
