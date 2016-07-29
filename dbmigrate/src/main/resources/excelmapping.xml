@@ -40,7 +40,7 @@
 		<column excelColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
-	<mapping table="label" alias="STATELABEL">
+	<mapping table="label_tmp" alias="STATELABEL">
 		<column excelColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column excelColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="ST" isPrimaryKey="Y" />
 		<column excelColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
@@ -48,7 +48,7 @@
 		<column excelColumn="4" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="5" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
 	</mapping>
-	<mapping table="label" alias="LATALABEL">
+	<mapping table="label_tmp" alias="LATALABEL">
 		<column excelColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column excelColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="LT" isPrimaryKey="Y" />
 		<column excelColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
@@ -56,7 +56,7 @@
 		<column excelColumn="4" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 		<column excelColumn="5" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
 	</mapping>
-	<mapping table="label" alias="NPALABEL">
+	<mapping table="label_tmp" alias="NPALABEL">
 		<column excelColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column excelColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="AC" isPrimaryKey="Y" />
 		<column excelColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
