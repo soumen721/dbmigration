@@ -44,7 +44,7 @@ public class QueryGeneratorUtil {
 	static StringBuilder valQuery = null;
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, List<String>> generateQueryFrmExcel(Map<String, String> confMap, Sheet sheet, String aliasToRead) throws Exception {
+	public static Map<String, List<String>> generateQueryFrmExcel(Map<String, String> confMap, Sheet sheet, String aliasToRead, int excelStartRow, int excelEndRow) throws Exception {
 		logger.debug("Enter into Method :: QueryGeneratorUtil.generateQueryFrmExcel()");
 		long startTime=System.currentTimeMillis();
 		
@@ -52,8 +52,8 @@ public class QueryGeneratorUtil {
 		List<String> insertQueryList = new ArrayList<String>();
 		List<String> updateQueryList = new ArrayList<String>();
 		try {
-			int startRow = Integer.parseInt(confMap.get(Constant.START_ROW).trim());
-			int endRow = Integer.parseInt(confMap.get(Constant.END_ROW).trim());			
+			int startRow = excelStartRow;	//Integer.parseInt(confMap.get(Constant.START_ROW).trim());
+			int endRow = excelEndRow;		//Integer.parseInt(confMap.get(Constant.END_ROW).trim());			
 			//String columnMapping = confMap.get(Constant.COLUMN_MAPPING).trim();
 			
 			// Populate Column Mapping Details

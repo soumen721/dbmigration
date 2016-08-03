@@ -29,7 +29,8 @@ import com.sms800.quickwin.util.QueryGeneratorUtil;
 public class ReadDataFileServiceImpl implements ReadFileService {
 	private static final Logger logger = LoggerFactory.getLogger(ReadDataFileServiceImpl.class);
 
-	static String[] excelAliasMappingAttr = {Constant.EXCEL_FILE_NAME, Constant.EXCEL_SHEET_TO_READ, Constant.FILE_SEQ, Constant.ATTR_JOB_ALIAS};
+	static String[] excelAliasMappingAttr = {Constant.EXCEL_FILE_NAME, Constant.EXCEL_SHEET_TO_READ, Constant.FILE_SEQ, Constant.ATTR_JOB_ALIAS,
+												Constant.READ_EXCEL_START_ROW, Constant.READ_EXCEL_END_ROW};
 	
 	@Autowired
 	QueryExecutorDao queryExecutorDao;
@@ -41,8 +42,8 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 		logger.debug("Enter into Method :: ReadDataFileServiceImpl.readExcelData()");
 
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
-		String fileName = confMap.get(Constant.EXCEL_FILE_PATH).trim();
-		String sheetName = confMap.get(Constant.EXCEL_SHEET_NAME).trim();
+		String fileName = null;		//confMap.get(Constant.EXCEL_FILE_PATH).trim();
+		String sheetName = null;	//confMap.get(Constant.EXCEL_SHEET_TO_READ).trim();
 		//logger.debug("EXCEL File Name ::" + fileName + " &  SheetName : " + sheetName);
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
@@ -67,7 +68,9 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 	
 				Sheet sheet = workbook.getSheet(sheetName);
 				if(sheet!=null){
-					queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet, mappingConfMap.get(key).get(Constant.ATTR_JOB_ALIAS));
+					int startRow = Integer.parseInt(mappingConfMap.get(key).get(Constant.READ_EXCEL_START_ROW).trim());
+					int endRow = Integer.parseInt(mappingConfMap.get(key).get(Constant.READ_EXCEL_END_ROW).trim());		
+					queryMap=QueryGeneratorUtil.generateQueryFrmExcel(confMap, sheet, mappingConfMap.get(key).get(Constant.ATTR_JOB_ALIAS), startRow, endRow);
 	
 					// Generate List Query DAO Call
 					if (isSqlGenerate) {

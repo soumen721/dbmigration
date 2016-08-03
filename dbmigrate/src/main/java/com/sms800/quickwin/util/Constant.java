@@ -73,4 +73,8 @@ public class Constant {
 	public static  String EXCEL_SHEET_TO_READ="sheetName"; 
 	//public static  String F="alias";
 	public static  String FILE_SEQ="seq";
+	public static  String READ_EXCEL_START_ROW="startRow";
+	public static  String READ_EXCEL_END_ROW="endRow";
+	
+	
 }
