@@ -89,6 +89,7 @@ public class QueryExecutorDaoImpl implements QueryExecutorDao {
 			
 			bufferWritter.flush();
 		} catch (Exception exc) {
+			logger.debug("[[Exception in QueryExecutorDaoImpl-->executeQuery -- Detils : "+exc.getMessage());
 			try {
 				if (bufferWritter != null) {
 					bufferWritter.close();

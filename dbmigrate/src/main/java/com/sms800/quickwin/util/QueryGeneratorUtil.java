@@ -340,6 +340,7 @@ public class QueryGeneratorUtil {
 				queryMap.put(Constant.MAP_INSERT_KEY, insertQueryList);
 				queryMap.put(Constant.MAP_UPDATE_KEY, updateQueryList);
 		}catch(Exception ex){
+			logger.debug("[[Exception -QueryGeneratorUtil-->generateQueryFrmCVS Detils : "+ex.getMessage());
 			ex.printStackTrace();
 		}finally{
 			scnr.close();
@@ -406,6 +407,7 @@ public class QueryGeneratorUtil {
 				throw new Exception("XML Mapping Document cannot be null");
 			}
 		} catch (Exception e) {
+			logger.debug("[[Exception -QueryGeneratorUtil-->loadMappingFile Detils : "+e.getMessage());
 			throw new Exception(e);
 		}
 		return mappings;
@@ -446,7 +448,8 @@ public class QueryGeneratorUtil {
 				xlTableMap.put(mappingAttrs.getNamedItem(Constant.ATTR_JOB_ALIAS).getTextContent(), outerMap);
 			}
 		} catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.debug("[[Exception -QueryGeneratorUtil-->loadMappingDetails Detils : "+e.getMessage());
+			//logger.info(e.getMessage());
 		}
 		return xlTableMap;
 	}

@@ -50,6 +50,7 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 			
 			bufferWritter.flush();
 		} catch (Exception exc) {
+			logger.debug("[[Exception -QueryGeneratorServiceImpl-->generateQuery Detils : "+exc.getMessage());
 			try {
 				if (bufferWritter != null) {
 					bufferWritter.close();
