@@ -179,9 +179,13 @@ public class QueryGeneratorUtil {
 					
 					String finalValQuery = valQuery.toString().substring(0, valQuery.toString().lastIndexOf(",")) + ");";
 					finalInsertQuery = insertQuery.toString() + finalValQuery;
-					finalUpdateQuery = updateQuery.toString().substring(0, updateQuery.toString().lastIndexOf(","))  
+					
+					if(whereQuery.lastIndexOf("and")!=-1){
+						finalUpdateQuery = updateQuery.toString().substring(0, updateQuery.toString().lastIndexOf(","))  
 										+ whereQuery.substring(0, whereQuery.lastIndexOf("and"))+";";
-
+					} else{
+						finalUpdateQuery = updateQuery.toString().substring(0, updateQuery.toString().lastIndexOf(","))+";"  ;
+					}
 					//logger.debug("\n Insert Query ::" + finalInsertQuery);
 					//logger.debug("\n Update Query ::" + finalUpdateQuery);
 
@@ -194,6 +198,7 @@ public class QueryGeneratorUtil {
 			queryMap.put(Constant.MAP_INSERT_KEY, insertQueryList);
 			queryMap.put(Constant.MAP_UPDATE_KEY, updateQueryList);
 		} catch (Exception exc) {
+			exc.printStackTrace();
 			logger.debug("[[ Error :: QueryGeneratorUtil.generateInsertQuery() , Exception : " + exc.getMessage()+" ]]");
 			//exc.printStackTrace();
 			throw exc;
