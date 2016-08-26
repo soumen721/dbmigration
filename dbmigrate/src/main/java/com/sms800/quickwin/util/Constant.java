@@ -8,20 +8,20 @@ public class Constant {
 	public static String DB_USER_PASSWORD="quickwin.db.user.password";
 	public static String DB_TABLE_NAME="db.table.name";
 	public static String EXCEL_MAPPING_FILE_NAME="excel.map.file.name";
-	public static String CVS_MAPPING_FILE_NAME="cvs.map.file.name";
+	public static String CSV_MAPPING_FILE_NAME="csv.map.file.name";
 	public static String ALIAS_TO_READ="file.alias.to.read";
 	public static String FILE_TYPE="read.file.type";	
 	
 	public static String EXCEL_FILE_PATH="excel.file.path";
 	public static String EXCEL_SHEET_NAME="excel.sheet.name";
-	public static String CVS_FILE_PATH="cvs.file.path";
+	public static String CSV_FILE_PATH="csv.file.path";
 	public static String SQL_GEN_FLAG="sql.query.generate";
 	public static String SQL_EXEC_FLAG="sql.query.execute";
 	public static String SQL_UPDATE_STATUS="existing.record.update";
-	public static String FILE_TIPE_CVS="cvs";
+	public static String FILE_TIPE_CSV="csv";
 	public static String FILE_TIPE_EXCEL="excel";
-	public static String CVS_LINE_REJ_PATTRN = "cvs.reject.line.pattern";
-	public static String CVS_COLMN_DEL = "cvs.column.delemeter";
+	public static String CSV_LINE_REJ_PATTRN = "csv.reject.line.pattern";
+	public static String CSV_COLMN_DEL = "csv.column.delemeter";
 	
 	public static String START_ROW="start.row.num";
 	public static String END_ROW="end.row.num";
@@ -58,7 +58,7 @@ public class Constant {
 	public static  String ATTR_JOB_TABLE = "table";
 	public static  String ATTR_TABLE_NODE = "column";
 	public static  String ATTR_XLS_COL = "excelColumn";
-	public static  String ATTR_CVS_COL ="cvsColumn";
+	public static  String ATTR_CSV_COL ="csvColumn";
 	public static  String ATTR_DFLT_VAL= "dfltValue";
 	public static  String ATTR_TABLE_COL = "toTableCloumn";
 	public static  String ATTR_DATATYPE = "datatype";

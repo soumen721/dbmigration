@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.sms800.quickwin.dao.QueryExecutorDao;
 import com.sms800.quickwin.domain.CustomerTemplateDTO;
+import com.sms800.quickwin.util.CSVQueryGeneratorUtil;
 import com.sms800.quickwin.util.Constant;
 import com.sms800.quickwin.util.QueryGeneratorUtil;
 
@@ -81,17 +82,18 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 	}
 
 	@Override
-	public List<CustomerTemplateDTO> readCvsData(Map<String, String> confMap) throws IOException {
+	public List<CustomerTemplateDTO> readCsvData(Map<String, String> confMap) throws IOException {
 		logger.debug("Enter into Method :: ReadDataFileServiceImpl.readCvsData()");
 
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
-		String fileName = confMap.get(Constant.CVS_FILE_PATH).trim();
+		String fileName = confMap.get(Constant.CSV_FILE_PATH).trim();
 		logger.debug("CVS File Name ::" + fileName );
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
 
 		try {
-			queryMap=QueryGeneratorUtil.generateQueryFrmCVS(confMap);
+			//queryMap=QueryGeneratorUtil.generateQueryFrmCVS(confMap);
+			queryMap = CSVQueryGeneratorUtil.generateQueryFrmCSV(confMap);
 			
 			if(queryMap!=null && !queryMap.isEmpty()){
 				// Generate List Query DAO Call

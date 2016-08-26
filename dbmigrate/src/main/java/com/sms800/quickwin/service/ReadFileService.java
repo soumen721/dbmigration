@@ -9,5 +9,5 @@ import com.sms800.quickwin.domain.CustomerTemplateDTO;
 public interface ReadFileService {	
 	List<CustomerTemplateDTO> readExcelData(Map<String, String> confMap) throws IOException;
 	
-	List<CustomerTemplateDTO> readCvsData(Map<String, String> confMap) throws IOException;
+	List<CustomerTemplateDTO> readCsvData(Map<String, String> confMap) throws IOException;
 }

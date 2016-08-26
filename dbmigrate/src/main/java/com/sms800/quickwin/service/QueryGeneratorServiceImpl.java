@@ -31,6 +31,7 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 			String tableName = confMap.get(Constant.DB_TABLE_NAME.trim());
 			String aliasName = confMap.get(Constant.ALIAS_TO_READ).trim();
 			String compFileName = filePath + "\\" + aliasName+"_"+tableName + ".sql";
+			boolean isExistingRecordUpdate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_UPDATE_STATUS).trim()) ? true : false;
 			
 			logger.debug("Generated SQL File Path : "+ compFileName);
 			File file = new File(compFileName);
@@ -43,7 +44,9 @@ public class QueryGeneratorServiceImpl implements QueryGeneratorService {
 						&& updateQueryList.size()==insertQueryList.size()){
 				
 				for (int i = 0; i < updateQueryList.size(); i++) {
-					bufferWritter.write(updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + "\n");
+					if(isExistingRecordUpdate){
+						bufferWritter.write(updateQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + "\n");
+					}
 					bufferWritter.write(insertQueryList.get(i).split(Constant.TILD_DELEMETER)[1] + "\n");
 				}
 			}

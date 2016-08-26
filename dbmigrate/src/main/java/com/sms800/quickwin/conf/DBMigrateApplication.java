@@ -44,9 +44,9 @@ public class DBMigrateApplication implements CommandLineRunner {
 			//logger.debug("Column Mapping : "+ confMap.get(Constant.COLUMN_MAPPING));
 			readExcelFileService.readExcelData(confMap);
 		} else if(confMap!=null && !confMap.isEmpty() && confMap.get("isConfigValid")!=null && "true".equalsIgnoreCase(confMap.get("isConfigValid")) && 
-				Constant.FILE_TIPE_CVS.equalsIgnoreCase(confMap.get(Constant.FILE_TYPE)) ){
+				Constant.FILE_TIPE_CSV.equalsIgnoreCase(confMap.get(Constant.FILE_TYPE)) ){
 			//logger.debug("Column Mapping : "+ confMap.get(Constant.COLUMN_MAPPING));
-			readExcelFileService.readCvsData(confMap);
+			readExcelFileService.readCsvData(confMap);
 		}
 		logger.debug("End of Execute ..............");
 	}
@@ -98,31 +98,31 @@ public class DBMigrateApplication implements CommandLineRunner {
 		}
 		
 		if(configMap!=null && !configMap.isEmpty()){
-			if(Constant.FILE_TIPE_CVS.equalsIgnoreCase(configMap.get(Constant.FILE_TYPE))){
-				if(environment.getProperty(Constant.CVS_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.CVS_FILE_PATH))){	
-					configMap.put(Constant.CVS_FILE_PATH, environment.getProperty(Constant.CVS_FILE_PATH));
+			if(Constant.FILE_TIPE_CSV.equalsIgnoreCase(configMap.get(Constant.FILE_TYPE))){
+				if(environment.getProperty(Constant.CSV_FILE_PATH)!=null && !"".equals(environment.getProperty(Constant.CSV_FILE_PATH))){	
+					configMap.put(Constant.CSV_FILE_PATH, environment.getProperty(Constant.CSV_FILE_PATH));
 				} else{
 					isConfigValid=false;
-					logger.debug(Constant.CVS_FILE_PATH+ " property value can not be null or blank");
+					logger.debug(Constant.CSV_FILE_PATH+ " property value can not be null or blank");
 				}
-				if(environment.getProperty(Constant.CVS_MAPPING_FILE_NAME)!=null && !"".equals(environment.getProperty(Constant.CVS_MAPPING_FILE_NAME))){	
-					configMap.put(Constant.CVS_MAPPING_FILE_NAME, environment.getProperty(Constant.CVS_MAPPING_FILE_NAME));
+				if(environment.getProperty(Constant.CSV_MAPPING_FILE_NAME)!=null && !"".equals(environment.getProperty(Constant.CSV_MAPPING_FILE_NAME))){	
+					configMap.put(Constant.CSV_MAPPING_FILE_NAME, environment.getProperty(Constant.CSV_MAPPING_FILE_NAME));
 				} else{
 					isConfigValid=false;
-					logger.debug(Constant.CVS_MAPPING_FILE_NAME+ " property value can not be null or blank");
+					logger.debug(Constant.CSV_MAPPING_FILE_NAME+ " property value can not be null or blank");
 				}
-				if(environment.getProperty(Constant.CVS_LINE_REJ_PATTRN)!=null && !"".equals(environment.getProperty(Constant.CVS_LINE_REJ_PATTRN))){	
-					configMap.put(Constant.CVS_LINE_REJ_PATTRN, environment.getProperty(Constant.CVS_LINE_REJ_PATTRN));
+				if(environment.getProperty(Constant.CSV_LINE_REJ_PATTRN)!=null && !"".equals(environment.getProperty(Constant.CSV_LINE_REJ_PATTRN))){	
+					configMap.put(Constant.CSV_LINE_REJ_PATTRN, environment.getProperty(Constant.CSV_LINE_REJ_PATTRN));
 				} else{
 					isConfigValid=false;
-					logger.debug(Constant.CVS_LINE_REJ_PATTRN+ " property value can not be null or blank");
+					logger.debug(Constant.CSV_LINE_REJ_PATTRN+ " property value can not be null or blank");
 				}
 				
-				if(environment.getProperty(Constant.CVS_COLMN_DEL)!=null && !"".equals(environment.getProperty(Constant.CVS_COLMN_DEL))){	
-					configMap.put(Constant.CVS_COLMN_DEL, environment.getProperty(Constant.CVS_COLMN_DEL));
+				if(environment.getProperty(Constant.CSV_COLMN_DEL)!=null && !"".equals(environment.getProperty(Constant.CSV_COLMN_DEL))){	
+					configMap.put(Constant.CSV_COLMN_DEL, environment.getProperty(Constant.CSV_COLMN_DEL));
 				} else{
 					isConfigValid=false;
-					logger.debug(Constant.CVS_COLMN_DEL+ " property value can not be null or blank");
+					logger.debug(Constant.CSV_COLMN_DEL+ " property value can not be null or blank");
 				}
 				
 			} else if(Constant.FILE_TIPE_EXCEL.equalsIgnoreCase(configMap.get(Constant.FILE_TYPE))){
@@ -138,16 +138,6 @@ public class DBMigrateApplication implements CommandLineRunner {
 				} else{
 					isConfigValid=false;
 					logger.debug(Constant.EXCEL_FILE_PATH+ " property value can not be null or blank");
-				}
-				if(environment.getProperty(Constant.START_ROW)!=null && !"".equals(environment.getProperty(Constant.START_ROW))){	
-					configMap.put(Constant.START_ROW, environment.getProperty(Constant.START_ROW));
-				} else{
-					configMap.put(Constant.START_ROW, "2");
-				}
-				if(environment.getProperty(Constant.END_ROW)!=null && !"".equals(environment.getProperty(Constant.END_ROW))){	
-					configMap.put(Constant.END_ROW, environment.getProperty(Constant.END_ROW));
-				} else{
-					configMap.put(Constant.END_ROW, "1000");
 				}
 				
 				/*String columnMappingNmae=Constant.COLUMN_MAPPING+Constant.DOT_DELEMETER+ environment.getProperty(Constant.DB_TABLE_NAME);
@@ -169,7 +159,18 @@ public class DBMigrateApplication implements CommandLineRunner {
 				throw new Exception("not a valid file type");
 			}
 		}
-		
+		//Read Row Range
+		if(environment.getProperty(Constant.START_ROW)!=null && !"".equals(environment.getProperty(Constant.START_ROW))){	
+			configMap.put(Constant.START_ROW, environment.getProperty(Constant.START_ROW));
+		} else{
+			configMap.put(Constant.START_ROW, "2");
+		}
+		if(environment.getProperty(Constant.END_ROW)!=null && !"".equals(environment.getProperty(Constant.END_ROW))){	
+			configMap.put(Constant.END_ROW, environment.getProperty(Constant.END_ROW));
+		} else{
+			configMap.put(Constant.END_ROW, "1000");
+		}
+		//Alias to read
 		if(environment.getProperty(Constant.ALIAS_TO_READ)!=null && !"".equals(environment.getProperty(Constant.ALIAS_TO_READ))){	
 			configMap.put(Constant.ALIAS_TO_READ, environment.getProperty(Constant.ALIAS_TO_READ));
 		} else{
