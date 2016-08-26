@@ -58,7 +58,7 @@ public class Constant {
 	public static  String ATTR_JOB_TABLE = "table";
 	public static  String ATTR_TABLE_NODE = "column";
 	public static  String ATTR_XLS_COL = "excelColumn";
-	public static  String ATTR_CSV_COL ="csvColumn";
+	public static  String ATTR_CSV_COL ="csvColumnIndex";
 	public static  String ATTR_DFLT_VAL= "dfltValue";
 	public static  String ATTR_TABLE_COL = "toTableCloumn";
 	public static  String ATTR_DATATYPE = "datatype";
@@ -66,5 +66,13 @@ public class Constant {
 	public static  String ATTR_IS_PRIMERY_KEY ="isPrimaryKey";
 	public static  String ATTR_DATAFORMAT = "dataformat";
 
-	public static  String DFLT_COLMN_NAME= "DFLT_VAL";
+	public static  String DFLT_COLMN_NAME= "DFLT_COL";
+	
+	//New
+	public static String CSV_CONF_DATA = "csvConfDtls";
+	public static String ALIAS_TO_CSV_MAPPING_FILE_NAME="aliastocsv.map.file.name";
+	public static String CSV_FILE_NAME= "csvFileName";
+	public static String CSV_FILE_DELM= "colmnDelm" ;
+	public static String CSV_FILE_REJ_PTRN= "rejPtrn";	
+	
 }

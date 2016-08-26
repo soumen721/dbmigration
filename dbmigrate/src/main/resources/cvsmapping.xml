@@ -1,125 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<mapping table="node" alias="node">
-		<column csvColumn="0" toTableCloumn="NodeName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="1" toTableCloumn="NodeDescription" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="NodeType" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="0" toTableCloumn="NodeName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="NodeDescription" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="NodeType" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-	
+	<!--COUNTRY Table START-->
 	<mapping table="countrycode" alias="COUNTRY">
-		<column csvColumn="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="1" toTableCloumn="effectiveDate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="0" toTableCloumn="countryName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="effectiveDate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="0" toTableCloumn="countryName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-
-	<mapping table="multicountrycode" alias="MULTICOUNTRY">
-		<column csvColumn="0" toTableCloumn="mcIdentifier" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="1" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="0" toTableCloumn="countryName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--COUNTRY Table END-->
+	<!--MULTI COUNTRY Table START-->
+	<mapping table="multicountrycode" alias="MULTI_COUNTRY">
+		<column csvColumnIndex="0" toTableCloumn="mcIdentifier" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="0" toTableCloumn="countryName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-
-	<mapping table="state" alias="STATENPA_1">
-		<column csvColumn="SNSTATE" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="SNNPA" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="SNDATE" toTableCloumn="effectivedate" datatype="DATE" pattern="0" dataformat="yyyyMMdd" isPrimaryKey="Y" />	
-		<column csvColumn="SNIND" toTableCloumn="actionIndicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--MULTI COUNTRY Table END-->
+	<!--COUNTRY NPA Table START-->
+	<mapping table="areacode" alias="COUNTRY_NPA">
+		<column csvColumnIndex="1" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-	<mapping table="state" alias="STATENPA">
-		<column csvColumn="1,3" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="4,8" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="8,17" toTableCloumn="effectivedate" datatype="DATE" pattern="0" dataformat="yyyyMMdd" isPrimaryKey="Y" />	
-		<column csvColumn="17,18" toTableCloumn="actionIndicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-	</mapping>
-	
-	<mapping table="areacode" alias="COUNTRYNPA">
-		<column csvColumn="1" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--COUNTRY NPA Table START-->
+	<mapping table="lata" alias="COUNTRY_LATA">
+		<column csvColumnIndex="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
-	<mapping table="lata" alias="COUNTRYLATA">
-		<column csvColumn="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<mapping table="countrynpamap" alias="COUNTRY_NPA_12">
+		<column csvColumnIndex="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
-	<mapping table="label" alias="label">
-		<column csvColumn="1" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="D" toTableCloumn="labelType" datatype="VARCHAR" pattern="LT" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="labelValue" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="3" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-	</mapping>
-	<mapping table="lata" alias="lata12">
-		<column csvColumn="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-	</mapping>
-	<mapping table="lata" alias="lata12">
-		<column csvColumn="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<mapping table="countrylatamap" alias="COUNTRY_LATA_12">
+		<column csvColumnIndex="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
-	<mapping table="countrynpamap" alias="COUNTRYNPA_12">
-		<column csvColumn="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="1" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-	</mapping>
-	
-	<mapping table="countrylatamap" alias="COUNTRYLATA_12">
-		<column csvColumn="0" toTableCloumn="countryCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<mapping table="state" alias="STATE_NPA">
+		<column csvColumnIndex="1,3" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="4,8" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="8,17" toTableCloumn="effectivedate" datatype="DATE" pattern="0" dataformat="yyyyMMdd" isPrimaryKey="Y" />	
+		<column csvColumnIndex="17,18" toTableCloumn="actionIndicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
 	<mapping table="statenpamap" alias="STATENPA_12">
-		<column csvColumn="SNSTATE" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="SNNPA" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="SNDATE" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="SNIND" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="SNSTATE" toTableCloumn="statecode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="SNNPA" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="SNDATE" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="SNIND" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-	
-	<mapping table="npalatamap" alias="NPALATA">
-		<column csvColumn="1" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="4" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--NPA LATA Table START-->
+	<mapping table="npalatamap" alias="NPA_LATA">
+		<column csvColumnIndex="2,8" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="9,16" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="17,26" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="27,28" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-	<mapping table="npalatamap" alias="NPALATA_CSV">
-		<column csvColumn="2,8" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="9,16" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="17,26" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="27,28" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--NPA LATA Table END-->
+	<!--Label Table END-->
+	<mapping table="npanxxlatamap" alias="NPANXX_LATA">
+		<column csvColumnIndex="9,17" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0-2" isPrimaryKey="Y" />
+		<column csvColumnIndex="9,17" toTableCloumn="nxxCode" datatype="VARCHAR" pattern="4-6" isPrimaryKey="Y" />
+		<column csvColumnIndex="18,25" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="26,35" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="36,37" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
-	
-	<mapping table="npanxxlatamap" alias="NPANXXLATA">
-		<column csvColumn="2" toTableCloumn="areaCode" datatype="VARCHAR" pattern="0-2" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="nxxCode" datatype="VARCHAR" pattern="4-6" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="4" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="5" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+	<!--Label Table START-->
+	<mapping table="label_tmp" alias="STATE_LABEL">
+		<column csvColumnIndex="2,11" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="DFLT_COL" toTableCloumn="labelType" datatype="VARCHAR" dfltValue="ST" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="11,20" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="21,29" toTableCloumn="labelValue" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="30,36" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="37,42" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
+	</mapping>	
+	<mapping table="label_tmp" alias="NPA_LABEL">
+		<column csvColumnIndex="2,11" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="DFLT_COL" toTableCloumn="labelType" datatype="VARCHAR" dfltValue="AC" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="11,20" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="21,27" toTableCloumn="labelValue" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="28,34" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="35,40" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
 	</mapping>
+	<mapping table="label_tmp" alias="LATA_LABEL">
+		<column csvColumnIndex="2,11" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="DFLT_COL" toTableCloumn="labelType" datatype="VARCHAR" dfltValue="LT" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="11,20" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="21,27" toTableCloumn="labelValue" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="28,34" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="35,40" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
+	</mapping>
+	<mapping table="label_tmp" alias="NPANXX_LABEL">
+		<column csvColumnIndex="2,11" toTableCloumn="labelName" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="DFLT_COL" toTableCloumn="labelType" datatype="VARCHAR" dfltValue="AC" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="11,20" toTableCloumn="effectivedate" datatype="DATE" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="21,27" toTableCloumn="labelValue" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="28,34" toTableCloumn="actionindicator" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="35,40" toTableCloumn="respOrg" datatype="VARCHAR" pattern="0-1" isPrimaryKey="N" />
+	</mapping>
+	<!--Label Table END-->
 	
 	<mapping table="carrieragreement" alias="CARRIER">
-		<column csvColumn="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0-1" isPrimaryKey="Y" />
+		<column csvColumnIndex="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0-1" isPrimaryKey="Y" />
 	</mapping>
 	
 	<mapping table="notifyapprovalsettings" alias="notifyapprovalsettings">
-		<column csvColumn="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
-		<column csvColumn="3" toTableCloumn="businessEntity" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
-		<column csvColumn="4" toTableCloumn="addRouting" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="3" toTableCloumn="changeRouting" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
-		<column csvColumn="4" toTableCloumn="DeleteRoutingScp" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
-		<column csvColumn="4" toTableCloumn="DeleteRoutingDisc" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="2" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="3" toTableCloumn="businessEntity" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="4" toTableCloumn="addRouting" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="3" toTableCloumn="changeRouting" datatype="DATE" dataformat="yyyyMMdd"  pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="4" toTableCloumn="DeleteRoutingScp" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
+		<column csvColumnIndex="4" toTableCloumn="DeleteRoutingDisc" datatype="VARCHAR" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	
 </config>
