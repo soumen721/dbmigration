@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<!-- STATE Table Mapping START-->
+	<mapping alias="STATE" > 
+		<column csvFileName="sntable_071316.txt" colmnDelm="\t" rejPtrn="PAGE||SNSTATE,SNNPA,SNDATE,SNIND||-------,-----,------,-----" />
+	</mapping>
+	<!-- STATE Table Mapping START-->	
+	<!-- STATE NPA Table Mapping START-->
+	<mapping alias="STATE_NPA" > 
+		<column csvFileName="sntable_071316.txt" colmnDelm="\t" rejPtrn="PAGE||SNSTATE,SNNPA,SNDATE,SNIND||-------,-----,------,-----" />
+	</mapping>
+	<!-- STATE NPA Table Mapping START-->
+	<!-- NPA LATA Table Mapping START-->
+	<mapping alias="NPA_LATA" > 
+		<column csvFileName="nqtable_071316.txt" colmnDelm="" rejPtrn="PAGE||NQNPA,NQLATA,NQDATE,NQIND||-----,------,------,-----" />
+	</mapping>
+	<!-- NPA LATA Table Mapping START-->	
+	<!-- NPA NXX LATA Table Mapping START-->
+	<mapping alias="NPANXX_LATA" > 
+		<column csvFileName="nptable_071316.txt" colmnDelm="" rejPtrn="PAGE||NPNPA,NPANXX,NPLATA,NPDATE,NPIND||-----,------,------,------,-----" />
+	</mapping>
+	<!-- NPA NXX LATA Table Mapping START-->	
+	<!-- CARRIERAGREEMENT Table Mapping START-->
+	<mapping alias="CARRIERAGREEMENT_CE" > 
+		<column csvFileName="cetable_071316.txt" colmnDelm="" rejPtrn="PAGE||CECARR,CERESP,CECARR||------,------,------" />
+	</mapping>
+	<mapping alias="CARRIERAGREEMENT_EG" > 
+		<column csvFileName="egtable_071316.txt" colmnDelm="" rejPtrn="PAGE||EG56,EGENTITY||----,--------" />
+	</mapping>
+	<!-- CARRIERAGREEMENT Table Mapping END-->
+	<!-- Label Temporary Table Mapping START-->
+	<mapping alias="STATE_LABEL" > 
+		<column csvFileName="rttable_071316.txt" colmnDelm="" rejPtrn="PAGE||RTLABEL,RTDATE,RTSTATE,RTIND,RTRESP||-------,------,-------,-----,------" />
+	</mapping>	
+	<mapping alias="NPA_LABEL" > 
+		<column csvFileName="rntable_071316.txt" colmnDelm="" rejPtrn="PAGE||RNLABEL,RNDATE,RNNPA,RNIND,RNRESP||-------,------,-----,-----,------" />
+	</mapping>	
+	<mapping alias="LATA_LABEL" > 
+		<column csvFileName="rztable_071316.txt" colmnDelm="" rejPtrn="PAGE||RZLABEL,RZDATE,RZLATA,RZIND,RZRESP||-------,------,------,-----,------" />
+	</mapping>
+	<mapping alias="NPANXX_LABEL" > 
+		<column csvFileName="natable_071316.txt" colmnDelm="" rejPtrn="PAGE||NALABEL,NADATE,NANPANXX,NAIND,NARESP||-------,------,--------,-----,------" />
+	</mapping>
+	<!-- Label Temporary Table Mapping END -->
+
+</config>

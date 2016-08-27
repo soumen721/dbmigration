@@ -233,11 +233,11 @@ public class QueryGeneratorUtil {
 				
 				Map<String,String> cols = new HashMap<>();
 				for(Map<String,String> innerMap:fileMetaData){
-					tableCol+=delim+innerMap.get(Constant.ATTR_TABLE_COL);
+					/*tableCol+=delim+innerMap.get(Constant.ATTR_TABLE_COL);
 					tableVal+=delim+"?";
 					delim=",";
 					cols.put(innerMap.get(Constant.ATTR_CSV_COL), "1");
-					colPattern+="(.*)("+innerMap.get(Constant.ATTR_CSV_COL)+")";
+					colPattern+="(.*)("+innerMap.get(Constant.ATTR_CSV_COL)+")";*/
 					if(innerMap!=null && !innerMap.isEmpty() && !Constant.DFLT_COLMN_NAME.equalsIgnoreCase(innerMap.get("cvsColumn"))){
 						patterns.add("(.*)("+innerMap.get(Constant.ATTR_CSV_COL)+")");
 					}
