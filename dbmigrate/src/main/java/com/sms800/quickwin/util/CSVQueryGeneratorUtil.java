@@ -41,6 +41,7 @@ public class CSVQueryGeneratorUtil {
 		String rejPtrn = "";
 		boolean isDelmSepFile = false;
 		String colmnDelm = "";
+		
 		try{
 			NodeList nodes = CommonUtil.loadMappingFile(confMap.get(Constant.ALIAS_TO_CSV_MAPPING_FILE_NAME));		
 			Map<String, Map<String,Object>> aliasMappingConfMap= CommonUtil.loadAliasMappingDetails(nodes, cvsaliasMappingAttr);
@@ -76,7 +77,7 @@ public class CSVQueryGeneratorUtil {
 			List<Map<String,String>> fileMetaData = (List<Map<String,String>>)fileMetaDataTable.get(Constant.TABLE_META_DATA);
 			scnr= new Scanner(filePath);
 			int lineNumber = 0;
-			//String colPattern = ""; 
+
 			List<String> patterns=new ArrayList<String>();
 			Map<String,String> cols = new HashMap<>();
 			
@@ -95,7 +96,6 @@ public class CSVQueryGeneratorUtil {
 			
 			while(scnr.hasNextLine()){
 				lineNumber++;
-				
 				String line = scnr.nextLine();
 				
 				//For Delimited file
@@ -131,6 +131,7 @@ public class CSVQueryGeneratorUtil {
 						} else{
 							csvCol = individual.get(Constant.ATTR_TABLE_COL);
 						}
+
 						if(Constant.DFLT_COLMN_NAME.equalsIgnoreCase(individual.get(Constant.ATTR_CSV_COL))){
 							val = individual.get(Constant.ATTR_DFLT_VAL);
 						} else{
@@ -141,8 +142,8 @@ public class CSVQueryGeneratorUtil {
 							} else{
 								String exp = individual.get(Constant.ATTR_CSV_COL);
 								try{
-									int startIndex = Integer.parseInt(exp.split(",")[0]) ;
-									int endIndex = Integer.parseInt(exp.split(",")[1]) ;
+									int startIndex = Integer.parseInt(exp.split(",")[0].trim()) ;
+									int endIndex = Integer.parseInt(exp.split(",")[1].trim()) ;
 									val = line.substring(startIndex, endIndex).trim() ;
 								} catch(Exception exc){
 									logger.info("As per conf == > Error in reading data for ROW Number ::" + lineNumber +"[[ Error Dteails : "+ exc.getMessage()+"]]");
