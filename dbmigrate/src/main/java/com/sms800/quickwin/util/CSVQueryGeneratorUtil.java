@@ -188,13 +188,6 @@ public class CSVQueryGeneratorUtil {
 						delim = ", ";
 					}
 				
-					String finalWhere = "";
-					/*if(Constant.UPDATE_QUERY_WHERE_1.equalsIgnoreCase(whereQuery.toString())){
-						finalWhere= "";
-					} else{
-						finalWhere = whereQuery.substring(0, whereQuery.lastIndexOf("and"));
-					}*/
-					
 					finalInsertQuery = Constant.INSERT_QUERY_1 +tableName+"("+ tableCol.toString() +") values ("+ tableVal.toString() +");";
 					finalUpdateQuery = updateQuery.toString() + whereQuery.toString() +";" ;
 									
