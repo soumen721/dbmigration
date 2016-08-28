@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.sms800.quickwin.dao.QueryExecutorDao;
 import com.sms800.quickwin.domain.CustomerTemplateDTO;
+import com.sms800.quickwin.util.CBCSVQueryGeneratorUtil;
 import com.sms800.quickwin.util.CSVQueryGeneratorUtil;
 import com.sms800.quickwin.util.Constant;
 import com.sms800.quickwin.util.QueryGeneratorUtil;
@@ -90,10 +91,15 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 		logger.debug("CVS File Name ::" + fileName );
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
-
+		boolean isClmnBaseRow = true ;// (configMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)!=null || !"".equals(configMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)) ? true :false;
+		
 		try {
 			//queryMap=QueryGeneratorUtil.generateQueryFrmCVS(confMap);
-			queryMap = CSVQueryGeneratorUtil.generateQueryFrmCSV(confMap);
+			if(isClmnBaseRow){
+				queryMap = CBCSVQueryGeneratorUtil.generateQueryFrmCSV(confMap);
+			} else{
+				queryMap = CSVQueryGeneratorUtil.generateQueryFrmCSV(confMap);
+			}
 			
 			if(queryMap!=null && !queryMap.isEmpty()){
 				// Generate List Query DAO Call

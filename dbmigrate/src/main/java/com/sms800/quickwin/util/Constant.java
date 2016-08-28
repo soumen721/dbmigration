@@ -11,6 +11,7 @@ public class Constant {
 	public static String CSV_MAPPING_FILE_NAME="csv.map.file.name";
 	public static String ALIAS_TO_READ="file.alias.to.read";
 	public static String FILE_TYPE="read.file.type";	
+	public static String IS_CVS_COLUMN_BASE_ROW = "csv.colmnbase.row";
 	
 	public static String EXCEL_FILE_PATH="excel.file.path";
 	public static String EXCEL_SHEET_NAME="excel.sheet.name";
@@ -68,7 +69,7 @@ public class Constant {
 
 	public static  String DFLT_COLMN_NAME= "DFLT_COL";
 	
-	//New
+	//New mapping for Alias to File
 	public static String CSV_CONF_DATA = "csvConfDtls";
 	public static String ALIAS_TO_CSV_MAPPING_FILE_NAME="aliastocsv.map.file.name";
 	public static String CSV_FILE_NAME= "csvFileName";

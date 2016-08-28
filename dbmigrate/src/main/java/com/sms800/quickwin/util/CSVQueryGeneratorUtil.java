@@ -27,7 +27,7 @@ public class CSVQueryGeneratorUtil {
 	
 	@SuppressWarnings({ "unused", "unchecked" })
 	public static Map<String, List<String>> generateQueryFrmCSV(Map<String, String> confMap) throws Exception {
-		logger.debug("Enter into Method :: QueryGeneratorUtil.generateQueryFrmCSV()");
+		logger.debug("Enter into Method :: CSVQueryGeneratorUtil.generateQueryFrmCSV()");
 		long startTime=System.currentTimeMillis();
 		Map<String, List<String>> queryMap = new HashMap<String, List<String>>();
 		List<String> insertQueryList = new ArrayList<String>();
@@ -203,7 +203,7 @@ public class CSVQueryGeneratorUtil {
 			queryMap.put(Constant.MAP_INSERT_KEY, insertQueryList);
 			queryMap.put(Constant.MAP_UPDATE_KEY, updateQueryList);
 		}catch(Exception ex){
-			logger.debug("[[Exception -QueryGeneratorUtil-->generateQueryFrmCSV Detils : "+ex.getMessage());
+			logger.debug("[[Exception -CSVQueryGeneratorUtil-->generateQueryFrmCSV Detils : "+ex.getMessage());
 			ex.printStackTrace();
 		}finally{
 			scnr.close();
@@ -212,7 +212,7 @@ public class CSVQueryGeneratorUtil {
 		
 		long endTime=System.currentTimeMillis();		
 		logger.debug("Totale Query Preparion Time  :: "+ (endTime-startTime) +" sec");
-		logger.debug("Leaving from Method :: QueryGeneratorUtil.generateQueryFrmCSV()");
+		logger.debug("Leaving from Method :: CSVQueryGeneratorUtil.generateQueryFrmCSV()");
 		return queryMap;
 	}
 	

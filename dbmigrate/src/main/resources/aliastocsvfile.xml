@@ -1,26 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
+	<!-- NPA Table Mapping START-->
+	<mapping alias="COUNTRY_NPA" > 
+		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
+	</mapping>
+	<!-- NPA Table Mapping END-->
+	<!-- COUNTRY NPA Table Mapping START-->
+	<mapping alias="COUNTRY_NPA_MAP" > 
+		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
+	</mapping>
+	<!-- COUNTRY NPATable Mapping START-->
+	<!-- LATA Table Mapping START-->
+	<mapping alias="COUNTRY_LATA" > 
+		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
+	</mapping>
+	<!-- LATA Table Mapping END-->
+	<!-- COUNTRY LATA Table Mapping START-->
+	<mapping alias="COUNTRY_LATA_MAP" > 
+		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
+	</mapping>
+	<!-- COUNTRY LATA Table Mapping END-->
+	
 	<!-- STATE Table Mapping START-->
 	<mapping alias="STATE" > 
 		<column csvFileName="sntable_071316.txt" colmnDelm="\t" rejPtrn="PAGE||SNSTATE,SNNPA,SNDATE,SNIND||-------,-----,------,-----" />
 	</mapping>
-	<!-- STATE Table Mapping START-->	
+	<!-- STATE Table Mapping END-->	
 	<!-- STATE NPA Table Mapping START-->
 	<mapping alias="STATE_NPA" > 
 		<column csvFileName="sntable_071316.txt" colmnDelm="\t" rejPtrn="PAGE||SNSTATE,SNNPA,SNDATE,SNIND||-------,-----,------,-----" />
 	</mapping>
-	<!-- STATE NPA Table Mapping START-->
+	<!-- STATE NPA Table Mapping END-->
 	<!-- NPA LATA Table Mapping START-->
 	<mapping alias="NPA_LATA" > 
 		<column csvFileName="nqtable_071316.txt" colmnDelm="" rejPtrn="PAGE||NQNPA,NQLATA,NQDATE,NQIND||-----,------,------,-----" />
 	</mapping>
-	<!-- NPA LATA Table Mapping START-->	
+	<!-- NPA LATA Table Mapping END-->	
 	<!-- NPA NXX LATA Table Mapping START-->
 	<mapping alias="NPANXX_LATA" > 
 		<column csvFileName="nptable_071316.txt" colmnDelm="" rejPtrn="PAGE||NPNPA,NPANXX,NPLATA,NPDATE,NPIND||-----,------,------,------,-----" />
 	</mapping>
-	<!-- NPA NXX LATA Table Mapping START-->	
+	<!-- NPA NXX LATA Table Mapping END-->	
 	<!-- CARRIERAGREEMENT Table Mapping START-->
 	<mapping alias="CARRIERAGREEMENT_CE" > 
 		<column csvFileName="cetable_071316.txt" colmnDelm="" rejPtrn="PAGE||CECARR,CERESP,CECARR||------,------,------" />
