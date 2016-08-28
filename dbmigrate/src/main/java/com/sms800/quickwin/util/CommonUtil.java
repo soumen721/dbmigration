@@ -32,10 +32,8 @@ public class CommonUtil {
 				Matcher m = r.matcher(line);
 				if (m.find( ))
 					return true;			
-			}
-			
-		}
-				
+			}		
+		}	
 		return false;
 	}
 	

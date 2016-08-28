@@ -72,24 +72,21 @@ public class CSVQueryGeneratorUtil {
 			
 			String tableName = fileMetaDataTable.get(Constant.ATTR_JOB_TABLE).toString();
 			confMap.put(Constant.DB_TABLE_NAME, tableName);
-			String tableCol = "";String tableVal=""; String delim=""; 
 								
 			List<Map<String,String>> fileMetaData = (List<Map<String,String>>)fileMetaDataTable.get(Constant.TABLE_META_DATA);
 			scnr= new Scanner(filePath);
 			int lineNumber = 0;
-			String colPattern = ""; 
+			//String colPattern = ""; 
 			List<String> patterns=new ArrayList<String>();
 			Map<String,String> cols = new HashMap<>();
 			
 			if(isDelmSepFile){
 				for(Map<String,String> innerMap:fileMetaData){
 					cols.put(innerMap.get(Constant.ATTR_CSV_COL), "1");
-					colPattern+="(.*)("+innerMap.get(Constant.ATTR_CSV_COL)+")";
 					if(innerMap!=null && !innerMap.isEmpty() && !Constant.DFLT_COLMN_NAME.equalsIgnoreCase(innerMap.get("cvsColumn"))){
 						patterns.add("(.*)("+innerMap.get(Constant.ATTR_CSV_COL)+")");
 					}
 				}
-				colPattern+="(.*)";	
 			}
 			
 			Map<String,Integer> mapPositon = new HashMap<>();
@@ -98,6 +95,7 @@ public class CSVQueryGeneratorUtil {
 			
 			while(scnr.hasNextLine()){
 				lineNumber++;
+				
 				String line = scnr.nextLine();
 				
 				//For Delimited file
@@ -124,7 +122,7 @@ public class CSVQueryGeneratorUtil {
 					whereQuery = new StringBuilder(Constant.UPDATE_QUERY_WHERE_1);
 					updateQuery.append(tableName + " set ");
 					
-					tableVal="" ; tableCol=""; String val ="";
+					String tableCol = "";String tableVal = ""; String delim = ""; String andDelim = " "; String val = "";
 					for(Map<String,String> individual:fileMetaData){
 						boolean isPrimaryKey=Constant.YES_CONSTANT.equalsIgnoreCase(individual.get(Constant.ATTR_IS_PRIMERY_KEY))? true:false;
 						String csvCol = "";
@@ -162,40 +160,43 @@ public class CSVQueryGeneratorUtil {
 						
 						System.out.println("Line No:"+lineNumber+" Details : "+line +"  Line length : "+line.length()+":::::::::::: Column Name :: "+individual.get(Constant.ATTR_TABLE_COL) +"::::::::::::::::"+ val);
 						
+						//Prepare Query
 						if("INT".equalsIgnoreCase(individual.get(Constant.ATTR_DATATYPE))){
-							tableVal += Integer.parseInt(val) +", ";
-							updateQuery.append(" "+ individual.get(Constant.ATTR_TABLE_COL) +"=" + val + ", ");
+							tableVal += delim+ Integer.parseInt(val) ;
+							updateQuery.append(delim + individual.get(Constant.ATTR_TABLE_COL) +"=" + val );
 						}else if("NUMBER".equalsIgnoreCase(individual.get(Constant.ATTR_DATATYPE))){
-							tableVal += Double.parseDouble(val) +", ";
-							updateQuery.append(" "+ individual.get(Constant.ATTR_TABLE_COL) +"=" + val + ", ");
+							tableVal += delim+ Double.parseDouble(val) ;
+							updateQuery.append(delim + individual.get(Constant.ATTR_TABLE_COL) +"=" + val );
 						}else if("DATE".equalsIgnoreCase(individual.get(Constant.ATTR_DATATYPE))){
-							tableVal += val +", ";
-							updateQuery.append(" "+ individual.get(Constant.ATTR_TABLE_COL) +"=" + val + ", ");
+							tableVal += delim+ val ;
+							updateQuery.append(delim + individual.get(Constant.ATTR_TABLE_COL) +"=" + val );
 						}else{
-							tableVal += "'"+val +"', ";  
-							updateQuery.append(" "+ individual.get(Constant.ATTR_TABLE_COL) +"='" + val + "', ");
+							tableVal += delim+"'"+val +"'";  
+							updateQuery.append(delim + individual.get(Constant.ATTR_TABLE_COL) +"='" + val+"'" );
 						}
-						tableCol+= individual.get(Constant.ATTR_TABLE_COL) +", ";
+						tableCol+= delim+individual.get(Constant.ATTR_TABLE_COL) ;
 						
 						if (isPrimaryKey) {
 							if ("VARCHAR".equalsIgnoreCase(individual.get(Constant.ATTR_DATATYPE))) {
-								whereQuery.append(" " + individual.get(Constant.ATTR_TABLE_COL) +"='" + val + "' and ");
+								whereQuery.append(andDelim + individual.get(Constant.ATTR_TABLE_COL) +"='" + val +"'" );
 							} else {
-								whereQuery.append(" " + individual.get(Constant.ATTR_TABLE_COL) + "=" + val + " and ");
+								whereQuery.append(andDelim + individual.get(Constant.ATTR_TABLE_COL) + "=" + val );
 							}
+							andDelim = " and ";
 						}
+						//Update delimiter
+						delim = ", ";
 					}
 				
 					String finalWhere = "";
-					if(Constant.UPDATE_QUERY_WHERE_1.equalsIgnoreCase(whereQuery.toString())){
+					/*if(Constant.UPDATE_QUERY_WHERE_1.equalsIgnoreCase(whereQuery.toString())){
 						finalWhere= "";
 					} else{
 						finalWhere = whereQuery.substring(0, whereQuery.lastIndexOf("and"));
-					}
+					}*/
 					
-					finalInsertQuery=Constant.INSERT_QUERY_1 +tableName+"("+tableCol.toString().substring(0, tableCol.toString().lastIndexOf(","))+") values "
-							+ "("+ tableVal.toString().substring(0, tableVal.toString().lastIndexOf(",")) + ");";
-					finalUpdateQuery = updateQuery.toString().substring(0, updateQuery.toString().lastIndexOf(",")) +finalWhere +";" ;
+					finalInsertQuery = Constant.INSERT_QUERY_1 +tableName+"("+ tableCol.toString() +") values ("+ tableVal.toString() +");";
+					finalUpdateQuery = updateQuery.toString() + whereQuery.toString() +";" ;
 									
 					//logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalInsertQuery);
 					//logger.info("*********Line NO: **********************"+ lineNumber+ "==> "+ finalUpdateQuery);
