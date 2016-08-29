@@ -91,7 +91,10 @@ public class ReadDataFileServiceImpl implements ReadFileService {
 		logger.debug("CVS File Name ::" + fileName );
 		boolean isSqlGenerate = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_GEN_FLAG).trim()) ? true : false;
 		boolean isSqlExecute = "Y".equalsIgnoreCase(confMap.get(Constant.SQL_EXEC_FLAG).trim()) ? true : false;
-		boolean isClmnBaseRow = true ;// (configMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)!=null || !"".equals(configMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)) ? true :false;
+		boolean isClmnBaseRow = false ;
+		if(confMap!=null && confMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)!=null && "Y".equalsIgnoreCase(confMap.get(Constant.IS_CVS_COLUMN_BASE_ROW)) ){
+			isClmnBaseRow = true;
+		}
 		
 		try {
 			//queryMap=QueryGeneratorUtil.generateQueryFrmCVS(confMap);
