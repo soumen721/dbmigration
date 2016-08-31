@@ -23,14 +23,14 @@
 	</mapping-->
 	<!--MULTI COUNTRY Table END-->
 	<!--NPA Table START-->
-	<mapping table="areacode" alias="COUNTRY_NPA">
+	<mapping table="areacode" alias="NPA">
 		<column csvColumnIndex="1" toTableCloumn="areacode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column csvColumnIndex="DFLT_COL" toTableCloumn="effectivedate" datatype="DATE" dfltValue="20160119" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
 		<column csvColumnIndex="DFLT_COL" toTableCloumn="actionindicator" datatype="VARCHAR" dfltValue="A" pattern="0" isPrimaryKey="N" />
 	</mapping>
 	<!--NPA Table END-->
 	<!--LATA Table START-->
-	<mapping table="lata" alias="COUNTRY_LATA">
+	<mapping table="lata" alias="LATA">
 		<column csvColumnIndex="1" toTableCloumn="lataCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
 		<column csvColumnIndex="DFLT_COL" toTableCloumn="effectivedate" datatype="DATE" dfltValue="19941215" dataformat="yyyyMMdd" pattern="0" isPrimaryKey="Y" />
 		<column csvColumnIndex="DFLT_COL" toTableCloumn="actionindicator" datatype="VARCHAR" dfltValue="A" pattern="0" isPrimaryKey="N" />
@@ -128,6 +128,13 @@
 		<column csvColumnIndex="10,12" toTableCloumn="entityCode" datatype="VARCHAR" pattern="0-1" isPrimaryKey="Y" />
 	</mapping>
 	<!--CARRIERAGREEMENT Table END-->
+	<!--NOTIFICATIONSETTING Table START-->
+	<mapping table="carrieracnamap" alias="ANNA_CC">
+		<column csvColumnIndex="Code" toTableCloumn="carriercode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+		<column csvColumnIndex="Name" toTableCloumn="carrieracna" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />
+	</mapping>
+	<!--NOTIFICATIONSETTING Table START-->
+
 	<!--NOTIFICATIONSETTING Table START-->
 	<mapping table="notifyapprovalsettings" alias="notifyapprovalsettings">
 		<column csvColumnIndex="1" toTableCloumn="carrierCode" datatype="VARCHAR" pattern="0" isPrimaryKey="Y" />

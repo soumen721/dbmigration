@@ -2,7 +2,7 @@
 <config>
 
 	<!-- NPA Table Mapping START-->
-	<mapping alias="COUNTRY_NPA" > 
+	<mapping alias="NPA" > 
 		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
 	</mapping>
 	<!-- NPA Table Mapping END-->
@@ -12,7 +12,7 @@
 	</mapping>
 	<!-- COUNTRY NPATable Mapping START-->
 	<!-- LATA Table Mapping START-->
-	<mapping alias="COUNTRY_LATA" > 
+	<mapping alias="LATA" > 
 		<column csvFileName="ZMAP064.txt" colmnDelm="\t" rejPtrn="PAGE" />
 	</mapping>
 	<!-- LATA Table Mapping END-->
