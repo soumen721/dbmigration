@@ -64,5 +64,9 @@
 		<column csvFileName="natable_071316.txt" colmnDelm="" rejPtrn="PAGE||NALABEL,NADATE,NANPANXX,NAIND,NARESP||-------,------,--------,-----,------" />
 	</mapping>
 	<!-- Label Temporary Table Mapping END -->
-
+	<!--ACNA CIC TABLE MAPPINg -->
+	<mapping alias="ANNA_CC" > 
+		<column csvFileName="acna.txt" colmnDelm="\t" rejPtrn="PAGE||Name,Code" />
+	</mapping>
+	<!--ACNA CIC TABLE MAPPINg -->	
 </config>
